@@ -1,0 +1,71 @@
+First thing the player sees
+	main menu
+		"play"
+		"exercise"
+			additional practice
+		"achievements"
+		"quit"
+		
+
+	PLAY
+		black + white background
+		white line 2/3rds up
+		character drops onto the line
+
+	character
+		is actually moveable (wasd vibe) 2d side scroller
+		can click keys to switch buttons, space to attack
+		jump
+			equipped weapon
+			unique look, shows up when swap it
+
+
+	world
+		tbd (line at first)
+		objective is to clear each stage
+	
+	enemies
+		pokemon-turn based style? 1v1 or 1v2
+		health above head
+		attack back
+		walk towards player
+		killing an enemy grants (possible) some way of prizing/getting stronger
+	
+	"battle" scene
+		can select weapon
+		space to use that weapon
+	levels
+		# of enemies tbd, but might be similar
+		(maybe just 4 levels for now)
+
+
+
+things to do
+	floor
+	player
+		move
+		stand on the floor
+	camera follow player 
+
+
+
+C++
+
+enemy
+	float health = 1.5;
+				3 / 2
+
+	void TakeDamage(float damage){
+		health -= damage;
+		if(health == 0( {
+			dead
+	}
+
+
+
+github
+
+
+
+		
+
