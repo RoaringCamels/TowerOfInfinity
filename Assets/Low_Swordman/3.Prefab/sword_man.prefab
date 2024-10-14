@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4096975540831286}
   - component: {fileID: 212699115550802086}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4210157123753652}
   - component: {fileID: 95898481864777010}
   - component: {fileID: 7044752382648319164}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: sword_man
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4954531293351526}
   - component: {fileID: 212874855828977060}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4507978557276566}
   - component: {fileID: 212825760485200248}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,7 +348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4236636489436240}
   - component: {fileID: 212074183272344212}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hat-Helmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -432,7 +432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4364909317503996}
   - component: {fileID: 212798183564874916}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Leg (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

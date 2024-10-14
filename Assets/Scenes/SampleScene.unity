@@ -138,9 +138,9 @@ GameObject:
   - component: {fileID: 350076255}
   - component: {fileID: 350076257}
   - component: {fileID: 350076256}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4027,6 +4027,14 @@ PrefabInstance:
       value: sword_man
       objectReference: {fileID: 0}
     - target: {fileID: 4210157123753652, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4210157123753652, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4210157123753652, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -4155,7 +4163,7 @@ GameObject:
   - component: {fileID: 1550940544}
   - component: {fileID: 1550940545}
   - component: {fileID: 1550940546}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AttackHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4273,9 +4281,10 @@ GameObject:
   - component: {fileID: 1648847602}
   - component: {fileID: 1648847601}
   - component: {fileID: 1648847600}
-  m_Layer: 0
+  - component: {fileID: 1648847603}
+  m_Layer: 7
   m_Name: Collisions
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5042,6 +5051,18 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1648847603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648847598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e2d0bb2ec5b12449b228145898dc1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1758794283
 GameObject:
   m_ObjectHideFlags: 3
@@ -5271,9 +5292,10 @@ GameObject:
   - component: {fileID: 1967309441}
   - component: {fileID: 1967309443}
   - component: {fileID: 1967309444}
-  m_Layer: 0
+  - component: {fileID: 1967309445}
+  m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5290,6 +5312,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d433a600921487844a36be93ceb18367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveTime: 0.2
+  blockingLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &1967309442
 Transform:
   m_ObjectHideFlags: 0
@@ -5365,6 +5391,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16023985, y: 0.31801283}
   m_EdgeRadius: 0
+--- !u!50 &1967309445
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967309440}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1973258837
 GameObject:
   m_ObjectHideFlags: 0
@@ -5404,7 +5457,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 0.16, y: 0.16, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1648847599}
