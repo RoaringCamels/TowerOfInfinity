@@ -15,8 +15,15 @@ public class PlayerMovement : MonoBehaviour {
     private Rigidbody2D rb2D;           //The Rigidbody2D component attached to this object.
     private float inverseMoveTime;      //Used to make movement more efficient.
     private bool isPlayerMoving;
+    private PlayerAnimation playerAnimation;
+    public int currentDirection;
+    // 0 == right
+    // 1 == left
+    // 2 == up
+    // 3 == down
     
     void Start() {
+        playerAnimation=GetComponent<PlayerAnimation>();
          //Get a component reference to this object's BoxCollider2D
         boxCollider = GetComponent <BoxCollider2D> ();
 
@@ -31,12 +38,20 @@ public class PlayerMovement : MonoBehaviour {
     void Update() {
         if(Input.GetKeyDown(KeyCode.D)){
             AttemptMove<Wall>(1, 0);
+            currentDirection = 0;
+            playerAnimation.ChangeDirection(currentDirection);
         } else if (Input.GetKeyDown(KeyCode.A)){
             AttemptMove<Wall>(-1, 0);
+            currentDirection = 1;
+            playerAnimation.ChangeDirection(currentDirection);
         }else if (Input.GetKeyDown(KeyCode.W)){
             AttemptMove<Wall>(0, 1);
+            currentDirection = 2;
+            playerAnimation.ChangeDirection(currentDirection);
         }else if (Input.GetKeyDown(KeyCode.S)){
             AttemptMove<Wall>(0, -1);
+            currentDirection = 3;
+            playerAnimation.ChangeDirection(currentDirection);
         }
     }
 /*
