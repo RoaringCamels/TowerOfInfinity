@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour {
     // Start is called before the first frame update
     
 
 
-     public float moveTime = 0.1f;       //Time it will take object to move, in seconds.
+    public float moveTime = 0.1f;       //Time it will take object to move, in seconds.
     public LayerMask blockingLayer;     //Layer on which collision will be checked.
 
 
@@ -22,6 +23,8 @@ public class PlayerMovement : MonoBehaviour {
     // 2 == up
     // 3 == down
     
+    public delegate void PlayerMoved(Vector2 playerPosition);
+    public static event PlayerMoved OnPlayerMoved;
     void Start() {
         playerAnimation=GetComponent<PlayerAnimation>();
          //Get a component reference to this object's BoxCollider2D
@@ -144,6 +147,7 @@ public class PlayerMovement : MonoBehaviour {
 
     protected IEnumerator SmoothMovement (Vector3 end)
     {
+        OnPlayerMoved?.Invoke(transform.position);
         //Calculate the remaining distance to move based on the square magnitude of the difference between current position and end parameter. 
         //Square magnitude is used instead of magnitude because it's computationally cheaper.
         isPlayerMoving = true;
@@ -165,6 +169,11 @@ public class PlayerMovement : MonoBehaviour {
             yield return null;
         }
         isPlayerMoving = false;
+    }
+
+    void triggerMove()
+    {
+
     }
 
     
