@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
+using Unity.VisualScripting;
 
 public class Enemy : MonoBehaviour
 {
@@ -77,14 +79,28 @@ public class Enemy : MonoBehaviour
         {
             float xDif = transform.position.x - playerPosition.x;
             float yDif = transform.position.y - playerPosition.y;
-            if(xDif > 1 || yDif > 1) //positive x difference
+            if(Mathf.Abs(xDif) > 1 || Mathf.Abs(yDif) > 1) // is away from player
             {
-                if(xDif - yDif > 0)
+                if(Mathf.Abs(xDif)> Mathf.Abs(yDif) )
                 {
-                    StartCoroutine(SmoothMovement(new Vector3(transform.position.x-1, transform.position.y, 0)));
+                    if(xDif>=0)
+                    {
+                        StartCoroutine(SmoothMovement(new Vector3(transform.position.x-1, transform.position.y, 0)));
+                    }
+                    else{
+                        StartCoroutine(SmoothMovement(new Vector3(transform.position.x+1, transform.position.y, 0)));
+                    }
+                    
                 }
                 else {
-                    StartCoroutine(SmoothMovement(new Vector3(transform.position.x, transform.position.y-1, 0)));
+                    if(yDif>=0)
+                    {
+                        StartCoroutine(SmoothMovement(new Vector3(transform.position.x, transform.position.y-1, 0)));
+                    }
+                    else
+                    {
+                        StartCoroutine(SmoothMovement(new Vector3(transform.position.x, transform.position.y+1, 0)));
+                    }
                 }
             }
         }
