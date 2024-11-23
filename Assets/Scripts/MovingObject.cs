@@ -6,6 +6,7 @@ public abstract class MovingObject : MonoBehaviour
 {
     public float moveTime = 0.1f;       //Time it will take object to move, in seconds.
     public LayerMask blockingLayer;     //Layer on which collision will be checked.
+    public LayerMask enemyLayer;
 
 
     private BoxCollider2D boxCollider;  //The BoxCollider2D component attached to this object.
@@ -42,6 +43,7 @@ public abstract class MovingObject : MonoBehaviour
 
         //Cast a line from start point to end point checking collision on blockingLayer.
         hit = Physics2D.Linecast (start, end, blockingLayer);
+        hit = Physics2D.Linecast(start, end, enemyLayer);
 
         //Re-enable boxCollider after linecast
         boxCollider.enabled = true;

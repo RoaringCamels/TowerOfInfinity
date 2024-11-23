@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour {
 
     public float moveTime = 0.1f;       //Time it will take object to move, in seconds.
     public LayerMask blockingLayer;     //Layer on which collision will be checked.
+    public LayerMask enemyLayer;
 
 
     private BoxCollider2D boxCollider;  //The BoxCollider2D component attached to this object.
@@ -92,29 +93,30 @@ public class PlayerMovement : MonoBehaviour {
         where T : Component
     {
         //Hit will store whatever our linecast hits when Move is called.
-        RaycastHit2D hit;
+        RaycastHit2D wallHit;
+        RaycastHit2D enemyHit;
 
         //Set canMove to true if Move was successful, false if failed.
-        bool canMove = Move (xDir, yDir, out hit);
+        bool canMove = Move (xDir, yDir, out wallHit, out enemyHit);
 
-        //Check if nothing was hit by linecast
-        if(hit.transform == null ) 
-            //If nothing was hit, return and don't execute further code.
-            return;
+        // //Check if nothing was hit by linecast
+        // if(wallHit.transform == null || enemyHit) 
+        //     //If nothing was hit, return and don't execute further code.
+        //     return;
 
-        //Get a component reference to the component of type T attached to the object that was hit
-        T hitComponent = hit.transform.GetComponent <T> ();
+        // //Get a component reference to the component of type T attached to the object that was hit
+        // T hitComponent = wallHit.transform.GetComponent<T> ();
 
-        //If canMove is false and hitComponent is not equal to null, meaning MovingObject is blocked and has hit something it can interact with.
-        if(!canMove && hitComponent != null){
+        // //If canMove is false and hitComponent is not equal to null, meaning MovingObject is blocked and has hit something it can interact with.
+        // if(!canMove && hitComponent != null){
 
-            //Call the OnCantMove function and pass it hitComponent as a parameter.
-            //OnCantMove(hitComponent);
-        }
+        //     //Call the OnCantMove function and pass it hitComponent as a parameter.
+        //     //OnCantMove(hitComponent);
+        // }
     }
 
 
-    protected bool Move (int xDir, int yDir, out RaycastHit2D hit)
+    protected bool Move (int xDir, int yDir, out RaycastHit2D wallHit, out RaycastHit2D enemyHit)
     {
         //Store start position to move from, based on objects current transform position.
         Vector2 start = transform.position;
@@ -126,13 +128,14 @@ public class PlayerMovement : MonoBehaviour {
         boxCollider.enabled = false;
 
         //Cast a line from start point to end point checking collision on blockingLayer.
-        hit = Physics2D.Linecast (start, end, blockingLayer);
+        wallHit = Physics2D.Linecast (start, end, blockingLayer);
+        enemyHit = Physics2D.Linecast (start, end, enemyLayer);
 
         //Re-enable boxCollider after linecast
         boxCollider.enabled = true;
 
         //Check if anything was hit
-        if(hit.transform == null && !isPlayerMoving)
+        if(wallHit.transform == null && enemyHit.transform == null && !isPlayerMoving)
         {
             //If nothing was hit, start SmoothMovement co-routine passing in the Vector2 end as destination
             StartCoroutine(SmoothMovement (end));

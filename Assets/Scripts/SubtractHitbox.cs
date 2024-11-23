@@ -13,7 +13,7 @@ public class SubtractHitbox : MonoBehaviour
                           
         if(other.CompareTag("Enemy")) {
             //deal whatever amount of damage
-            other.gameObject.GetComponent<Enemy>().SubtractDamage(5f);
+            other.gameObject.GetComponentInParent<Enemy>().SubtractDamage(5f);
         }
         //instead of just destroying, perform the corresponding sword attack damage
     }

@@ -79,7 +79,7 @@ public class Enemy : MonoBehaviour
         {
             float xDif = transform.position.x - playerPosition.x;
             float yDif = transform.position.y - playerPosition.y;
-            if(Mathf.Abs(xDif) > 1 || Mathf.Abs(yDif) > 1) // is away from player
+            if(Mathf.Abs(xDif) > 2 || Mathf.Abs(yDif) > 2) // is away from player
             {
                 if(Mathf.Abs(xDif)> Mathf.Abs(yDif) )
                 {
