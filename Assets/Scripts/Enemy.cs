@@ -35,19 +35,13 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        healthText = GetComponentInChildren<TMP_Text>();
-        UpdateHealth();
         rb2D = GetComponentInChildren<Rigidbody2D>();
         inverseMoveTime = 1 / moveTime;
+        healthText = GetComponentInChildren<TMP_Text>();
+        healthText.text = health.ToString();
         transform.position = new Vector3(8, 4, 0);
+        this.enabled = false;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SubtractDamage(float damage)
     {
         health -= damage;
