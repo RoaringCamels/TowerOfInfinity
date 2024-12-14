@@ -81,6 +81,11 @@ public class BoardManager : MonoBehaviour
                 //Check if we current position is at board edge, if so choose a random outer wall prefab from our array of outer wall tiles.
                 if(x == -1 || x==-2 || y == -1 || y == -2 || y == rows || y== rows+1)
                     toInstantiate = outerWallTiles [Random.Range (0, outerWallTiles.Length)];
+
+                if(( x == currNum +columns || x == currNum + columns -1) && !(y >=rows/2-1 && y <= rows/2+1))
+                {
+                    toInstantiate = outerWallTiles [Random.Range (0, outerWallTiles.Length)];
+                }
                     
                 //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
                 GameObject instance = Instantiate (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity) as GameObject;
