@@ -39,7 +39,6 @@ public class Enemy : MonoBehaviour
         inverseMoveTime = 1 / moveTime;
         healthText = GetComponentInChildren<TMP_Text>();
         healthText.text = health.ToString();
-        transform.position = new Vector3(8, 4, 0);
         this.enabled = false;
     }
     public void SubtractDamage(float damage)

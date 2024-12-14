@@ -25,8 +25,8 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    public int columns = 8;             //Number of columns in our game board.
-    public int rows = 8;                //Number of rows in our game board.
+    public int columns;             //Number of columns in our game board.
+    public int rows;                //Number of rows in our game board.
     //Lower and upper limit for our random number of walls per level.
     public Count wallCount = new Count (5, 9);
     //Lower and upper limit for our random number of food items per level.
@@ -45,13 +45,13 @@ public class BoardManager : MonoBehaviour
 
 
     //Clears our list gridPositions and prepares it to generate a new board.
-    void InitialiseList ()
+    void InitialiseList (int currNum)
     {
         //Clear our list gridPositions.
         gridPositions.Clear ();
 
         //Loop through x axis (columns).
-        for(int x = 1; x < columns-1; x++)
+        for(int x = currNum+1; x < currNum+columns-1; x++)
         {
             //Within each column, loop through y axis (rows).
             for(int y = 1; y < rows-1; y++)
@@ -64,13 +64,13 @@ public class BoardManager : MonoBehaviour
 
 
     //Sets up the outer walls and floor (background) of the game board.
-    void BoardSetup ()
+    void BoardSetup (int currNum)
     {
         //Instantiate Board and set boardHolder to its transform.
         boardHolder = new GameObject ("Board").transform;
 
         //Loop along x axis, starting from -1 (to fill corner) with floor or outerwall edge tiles.
-        for(int x = -2; x < columns + 2; x++)
+        for(int x = currNum; x < currNum+columns + 2; x++)
         {
             //Loop along y axis, starting from -1 to place floor or outerwall tiles.
             for(int y = -2; y < rows + 2; y++)
@@ -79,7 +79,7 @@ public class BoardManager : MonoBehaviour
                 GameObject toInstantiate = floorTiles[Random.Range (0,floorTiles.Length)];
 
                 //Check if we current position is at board edge, if so choose a random outer wall prefab from our array of outer wall tiles.
-                if(x == -1 || x==-2 || x == columns || x == columns+1 || y == -1 || y == -2 || y == rows || y== rows+1)
+                if(x == -1 || x==-2 || y == -1 || y == -2 || y == rows || y== rows+1)
                     toInstantiate = outerWallTiles [Random.Range (0, outerWallTiles.Length)];
                     
                 //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
@@ -133,23 +133,39 @@ public class BoardManager : MonoBehaviour
     //SetupScene initializes our level and calls the previous functions to lay out the game board
     public void SetupScene (int level)
     {
-        //Creates the outer walls and floor.
-        BoardSetup ();
-
-        //Reset our list of gridpositions.
-        InitialiseList ();
-
-        //Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
-       // LayoutObjectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum);
-
-        //Instantiate a random number of food tiles based on minimum and maximum, at randomized positions.
-      //  LayoutObjectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum);
-
-        //Determine number of enemies based on current level number, based on a logarithmic progression
+        int startNum = 0;
         int enemyCount = (int)Mathf.Log(level, 2f);
+        for(int x=-2; x<0; x++)
+        {
+            for(int y=-2; y<rows+2; y++)
+            {
+                GameObject toInstantiate = outerWallTiles [Random.Range (0, outerWallTiles.Length)];
+                GameObject instance = Instantiate (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity);
+                instance.transform.SetParent (boardHolder);
+            }
+        }
+        //Creates the outer walls and floor.
+        for(int i=0; i<10; i++)
+        {
+            BoardSetup (startNum);
+            InitialiseList (startNum);
 
-        //Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
-      //  LayoutObjectAtRandom (enemyTiles, enemyCount, enemyCount);
+            //Determine number of enemies based on current level number, based on a logarithmic progression
+            enemyCount = (int)Mathf.Log(level, 2f);
 
+            //Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
+            LayoutObjectAtRandom (enemyTiles, enemyCount, enemyCount);
+            level++;
+            startNum += columns;
+        }
+        for(int x=startNum; x<startNum+2; x++)
+        {
+            for(int y=-2; y<rows+2; y++)
+            {
+                GameObject toInstantiate = outerWallTiles [Random.Range (0, outerWallTiles.Length)];
+                GameObject instance = Instantiate (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity);
+                instance.transform.SetParent (boardHolder);
+            }
+        }
     }
 }
