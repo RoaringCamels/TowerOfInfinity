@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -9,26 +11,27 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField]private GameObject AttackHitbox;
     [SerializeField]private float attackTimer;
     private int currentWeapon = 0;
+    private WeaponHandler wh;
+
+    void Start(){
+        wh = GetComponent<WeaponHandler>();
+        //wh = FindObjectOfType<WeaponHandler>();
+    }
 
 
-    private IEnumerator Attack() {
-        
-        if(currentWeapon == 0) {
-            SubtractHitbox.SetActive(true);
-            yield return new WaitForSeconds(attackTimer);
-            SubtractHitbox.SetActive(false);
-        }
-        else if(currentWeapon == 1) {
-            AttackHitbox.SetActive(true);
-            yield return new WaitForSeconds(attackTimer);
-            AttackHitbox.SetActive(false);
-        }
-        
+    private string performOperation(){
+        string operation = wh.getCurrentWeaponOperation();
+        int level = wh.getCurrentWeaponLevel();
+
+        string output = $"({operation}{level})";
+
+        return output;
     }
 
     void Update() {
         if(Input.GetKeyDown(KeyCode.Space)) {
-            StartCoroutine(Attack());
+            Debug.Log($"SPACE DOWN PLAYER ATTACK SCRIPT");
+            //StartCoroutine(performOperation());
         }
     }
 }
