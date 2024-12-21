@@ -8,7 +8,10 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField]private GameObject SubtractHitbox;
 
-    [SerializeField]private GameObject AttackHitbox;
+    [SerializeField]private GameObject AddHitbox;
+    [SerializeField]private GameObject TimesHitbox;
+
+    [SerializeField]private GameObject DivideHitbox;
     [SerializeField]private float attackTimer;
     private int currentWeapon = 0;
     private WeaponHandler wh;
@@ -35,6 +38,18 @@ public class PlayerAttack : MonoBehaviour
             if(wh.getCurrentWeaponOperation() == "-")
             {
                 StartCoroutine(Attack(SubtractHitbox));
+            }
+            else if(wh.getCurrentWeaponOperation() == "+")
+            {
+                StartCoroutine(Attack(AddHitbox));
+            }
+            else if(wh.getCurrentWeaponOperation() == "*")
+            {
+                StartCoroutine(Attack(TimesHitbox));
+            }
+            else if(wh.getCurrentWeaponOperation() == "/")
+            {
+                StartCoroutine(Attack(DivideHitbox));
             }
         }
     }

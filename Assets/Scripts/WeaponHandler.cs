@@ -8,8 +8,8 @@ public class WeaponHandler : MonoBehaviour
 {    
     private Weapon w1 = new Weapon("w1",1,"-");
     private Weapon w2 = new Weapon("w2",1,"+");
-    private Weapon w3 = new Weapon("w3",1,"*");
-    private Weapon w4 = new Weapon("w4",1,"/");
+    private Weapon w3 = new Weapon("w3",2,"*");
+    private Weapon w4 = new Weapon("w4",2,"/");
 
     private Weapon[] weapons;
     private Weapon currentWeapon;
@@ -67,14 +67,14 @@ public class Weapon
 
     public Weapon(string name, int level, string operation){
         this.name = name;
-        this.level = 1;
+        this.level = level;
         this.baseDamage = this.level;
         this.operation = operation;
     }
 
-    public void LevelUp(){
+    public void LevelUp(int up=1){
         Debug.Log("LevelUp() called");
-        level++;
+        level+=up;
         Debug.Log($"{name} levelrf up to level {level}!");
     }
 

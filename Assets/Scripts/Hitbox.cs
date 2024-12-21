@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SubtractHitbox : MonoBehaviour
+public class Hitbox : MonoBehaviour
 {
     PlayerAttack playerAttack;
 
