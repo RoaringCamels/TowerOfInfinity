@@ -13,7 +13,6 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField]private GameObject DivideHitbox;
     [SerializeField]private float attackTimer;
-    private int currentWeapon = 0;
     private WeaponHandler wh;
 
     void Start(){

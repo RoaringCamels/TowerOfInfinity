@@ -19,17 +19,19 @@ public class Enemy : MonoBehaviour
     public float moveTime = 0.1f;       //Time it will take object to move, in seconds.
 
     private float inverseMoveTime;      //Used to make movement more efficient.
+    
+    private bool enemyTurn;
 
 
 
     void OnEnable()
     {
-        PlayerMovement.OnPlayerMoved += Move;
+        PlayerMovement.OnPlayerMoved += TakeTurn;
     }
 
     void OnDisable()
     {
-        PlayerMovement.OnPlayerMoved -= Move;
+        PlayerMovement.OnPlayerMoved -= TakeTurn;
     }
 
 
@@ -62,6 +64,18 @@ public class Enemy : MonoBehaviour
     }
 
     
+    void TakeTurn(Vector2 playerPosition)
+    {
+        if(enemyTurn)
+        {
+            Move(playerPosition);
+        }
+        if(enemyTurn)
+        {
+            //will be attack
+        }
+    }
+
     void Move(Vector2 playerPosition) {
         if(Vector2.Distance((Vector2)transform.position, playerPosition) < 8)
         {
@@ -69,6 +83,7 @@ public class Enemy : MonoBehaviour
             float yDif = transform.position.y - playerPosition.y;
             if(Mathf.Abs(xDif) > 2 || Mathf.Abs(yDif) > 2) // is away from player
             {
+                enemyTurn = false;
                 if(Mathf.Abs(xDif)> Mathf.Abs(yDif) )
                 {
                     if(xDif>=0)
@@ -90,7 +105,7 @@ public class Enemy : MonoBehaviour
                         StartCoroutine(SmoothMovement(new Vector3(transform.position.x, transform.position.y+1, 0)));
                     }
                 }
-            }
+            } 
         }
 
     }

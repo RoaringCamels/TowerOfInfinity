@@ -108,8 +108,8 @@ public class Fraction
 public class Node
 {
     public string Value { get; set; }
-    public Node? Left { get; set; }
-    public Node? Right { get; set; }
+    public Node Left { get; set; }
+    public Node Right { get; set; }
 
     public Node(string value)
     {
@@ -126,7 +126,7 @@ public class Node
 
 public class ExpressionTree
 {
-    public Node? Root { get; set; }
+    public Node Root { get; set; }
 
     public ExpressionTree()
     {
@@ -254,7 +254,7 @@ public class ExpressionTree
         return postfix;
     }
 
-    private Node? BuildFromPostfix(List<string> postfix)
+    private Node BuildFromPostfix(List<string> postfix)
     {
         if (postfix.Count == 0) return null;
 
@@ -290,7 +290,7 @@ public class ExpressionTree
         return EvaluateRecursive(Root);
     }
 
-    private Fraction EvaluateRecursive(Node? node)
+    private Fraction EvaluateRecursive(Node node)
     {
         if (node == null)
             return new Fraction(0);
@@ -318,7 +318,7 @@ public class ExpressionTree
         Console.WriteLine();
     }
 
-    private void InorderTraversalRecursive(Node? node)
+    private void InorderTraversalRecursive(Node node)
     {
         if (node == null)
             return;
@@ -377,7 +377,7 @@ public class Program
         while (true)
         {
             Console.WriteLine("\nEnter an expression (or 'exit' to quit):");
-            string? input = Console.ReadLine();
+            string input = Console.ReadLine();
             
             if (input?.ToLower() == "exit")
                 break;
