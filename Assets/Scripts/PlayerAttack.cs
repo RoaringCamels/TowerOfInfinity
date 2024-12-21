@@ -18,12 +18,11 @@ public class PlayerAttack : MonoBehaviour
         //wh = FindObjectOfType<WeaponHandler>();
     }
 
-
-    private string performOperation(){
+    public string performOperation(){
         string operation = wh.getCurrentWeaponOperation();
         int level = wh.getCurrentWeaponLevel();
-
-        string output = $"({operation}{level})";
+        Debug.Log("Operation: " + operation + "     Level: " +  level);
+        string output = $"{operation}{level}";
 
         return output;
     }
@@ -32,6 +31,19 @@ public class PlayerAttack : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)) {
             Debug.Log($"SPACE DOWN PLAYER ATTACK SCRIPT");
             //StartCoroutine(performOperation());
+            //turn on the subtract hitbox
+            if(wh.getCurrentWeaponOperation() == "-")
+            {
+                StartCoroutine(Attack(SubtractHitbox));
+            }
         }
     }
+
+    IEnumerator Attack(GameObject hitbox)
+    {
+        hitbox.SetActive(true);
+        yield return new WaitForSeconds(attackTimer);
+        hitbox.SetActive(false);
+    }
+
 }

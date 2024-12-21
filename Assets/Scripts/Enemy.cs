@@ -14,11 +14,12 @@ public class Enemy : MonoBehaviour
     //functions that change the "format" it's displayed in, depending on what type of number it is  
     //text for health
     private TMP_Text healthText;
-    private float health = 20;
+    public string health = "20";
     private Rigidbody2D rb2D;
     public float moveTime = 0.1f;       //Time it will take object to move, in seconds.
 
     private float inverseMoveTime;      //Used to make movement more efficient.
+
 
 
     void OnEnable()
@@ -33,6 +34,7 @@ public class Enemy : MonoBehaviour
 
 
 
+
     void Start()
     {
         rb2D = GetComponentInChildren<Rigidbody2D>();
@@ -41,28 +43,21 @@ public class Enemy : MonoBehaviour
         healthText.text = health.ToString();
         this.enabled = false;
     }
-    public void SubtractDamage(float damage)
+   
+    public void ChangeHealth(string attack)
     {
-        health -= damage;
+        ExpressionTree tree = new ExpressionTree();
+        tree.BuildFromInfix(attack);
+        tree.InorderTraversal();
+        health = tree.Evaluate().ToString();
         UpdateHealth();
     }
-
-    public void AddDamage(float damage) {
-        health += damage;
-        UpdateHealth();
-    }
-
-    public void DivideDamage(float quotient) {
-        health = health / quotient;
-        UpdateHealth();
-    }
-
 
     void UpdateHealth(){
-        if(health != 0) {
-            healthText.text = health.ToString();
-        } else {
+        if(health == "0") {
             Destroy(gameObject);
+        } else {
+            healthText.text = health;
         }
     }
 
