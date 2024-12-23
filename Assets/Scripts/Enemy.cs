@@ -148,7 +148,7 @@ public class Enemy : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         Vector2 velocity = new Vector2(playerPosition.x - transform.position.x, playerPosition.y - transform.position.y);
 
-        projectile.GetComponent<Projectile>().FireProjectile(velocity);
+        projectile.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
     }
 
 }

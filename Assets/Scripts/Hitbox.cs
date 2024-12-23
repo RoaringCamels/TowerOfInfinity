@@ -14,7 +14,7 @@ public class Hitbox : MonoBehaviour
         if(other.CompareTag("Enemy")) {
             //deal whatever amount of damage
             
-            print(other.gameObject.GetComponentInParent<Enemy>().health + playerAttack.performOperation());
+        
             other.gameObject.GetComponentInParent<Enemy>().ChangeHealth(other.gameObject.GetComponentInParent<Enemy>().health + playerAttack.performOperation());
         }
         //instead of just destroying, perform the corresponding sword attack damage
