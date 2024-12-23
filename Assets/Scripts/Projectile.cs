@@ -10,9 +10,18 @@ public class Projectile : MonoBehaviour
     private GameObject thisParent;
 
     
-    private void SetDamage(string playerHealth)
+    private void setDamage(string playerHealth)
     {
-        
+        //ex. playerHeatlh is a positve integer
+        // damage = "-" + (int)(Math.Random()*2*level) + level
+
+        //ex. playerHeatlh is a negative integer
+        // damage = "+" + (int)(Math.Random()*2*level) + level
+
+        //ex. playerHealth is a fraction
+        // damage = "*" + (int)(Math.Random()*2) + level -1;    50% chance to get the right denominator;
+
+        // "/" is implemented by a boss.
     }
 
     public void FireProjectile(Vector2 velocity, GameObject parent)
