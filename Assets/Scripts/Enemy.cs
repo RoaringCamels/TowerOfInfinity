@@ -22,16 +22,21 @@ public class Enemy : MonoBehaviour
     
     private bool enemyTurn;
 
+    public GameObject projectilePrefab;
+
 
 
     void OnEnable()
     {
         PlayerMovement.OnPlayerMoved += TakeTurn;
+        PlayerAttack.OnPlayerAttacked += TakeTurn;
     }
 
     void OnDisable()
     {
         PlayerMovement.OnPlayerMoved -= TakeTurn;
+        PlayerAttack.OnPlayerAttacked -= TakeTurn;
+    
     }
 
 
@@ -55,7 +60,7 @@ public class Enemy : MonoBehaviour
         UpdateHealth();
     }
 
-    void UpdateHealth(){
+    public void UpdateHealth(){
         if(health == "0") {
             Destroy(gameObject);
         } else {
@@ -66,13 +71,14 @@ public class Enemy : MonoBehaviour
     
     void TakeTurn(Vector2 playerPosition)
     {
+        enemyTurn =  true;
         if(enemyTurn)
         {
             Move(playerPosition);
         }
         if(enemyTurn)
         {
-            //will be attack
+            Attack(playerPosition);
         }
     }
 
@@ -134,6 +140,15 @@ public class Enemy : MonoBehaviour
             yield return null;
         }
         //isPlayerMoving = false;
+    }
+
+
+    void Attack(Vector2 playerPosition)
+    {
+        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        Vector2 velocity = new Vector2(playerPosition.x - transform.position.x, playerPosition.y - transform.position.y);
+
+        projectile.GetComponent<Projectile>().FireProjectile(velocity);
     }
 
 }

@@ -49,7 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12d328c2d41fba74596b1abd6a1ec0d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 20
   moveTime: 0.1
+  projectilePrefab: {fileID: 6864133168397460374, guid: bdfbbe46737b4984e808436e204a2262, type: 3}
 --- !u!58 &1605354388212223840
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -111,7 +113,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 0
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &7433529237285063422
 MonoBehaviour:
   m_ObjectHideFlags: 0

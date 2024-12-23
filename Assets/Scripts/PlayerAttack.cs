@@ -15,6 +15,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField]private float attackTimer;
     private WeaponHandler wh;
 
+    public delegate void PlayerAttacked(Vector2 playerPosition);
+    public static event PlayerAttacked OnPlayerAttacked;
+
     void Start(){
         wh = GetComponent<WeaponHandler>();
         //wh = FindObjectOfType<WeaponHandler>();
@@ -55,6 +58,7 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator Attack(GameObject hitbox)
     {
+        OnPlayerAttacked?.Invoke(transform.position);
         hitbox.SetActive(true);
         yield return new WaitForSeconds(attackTimer);
         hitbox.SetActive(false);

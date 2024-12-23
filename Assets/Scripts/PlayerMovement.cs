@@ -174,10 +174,7 @@ public class PlayerMovement : MonoBehaviour {
         isPlayerMoving = false;
     }
 
-    void triggerMove()
-    {
-
-    }
+    
 
     
 }

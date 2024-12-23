@@ -14,6 +14,7 @@ public class EnemyTrigger : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            //enemy.UpdateHealth();
             enemy.enabled = true;
         }
     }
