@@ -5409,7 +5409,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.1118255, y: 3, z: -10}
+  m_LocalPosition: {x: 5.111111, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5618,7 +5618,7 @@ GameObject:
   - component: {fileID: 630098871}
   m_Layer: 0
   m_Name: AddHitbox
-  m_TagString: Untagged
+  m_TagString: Hit Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6341,7 +6341,7 @@ GameObject:
   - component: {fileID: 919494476}
   m_Layer: 0
   m_Name: DivideHitbox
-  m_TagString: Untagged
+  m_TagString: Hit Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7488,7 +7488,7 @@ GameObject:
   - component: {fileID: 1279034102}
   m_Layer: 0
   m_Name: TimesHitbox
-  m_TagString: Untagged
+  m_TagString: Hit Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7977,7 +7977,7 @@ Transform:
   m_GameObject: {fileID: 1379693495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.0624294, y: 3, z: -10}
+  m_LocalPosition: {x: 4.0622225, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8353,7 +8353,7 @@ GameObject:
   - component: {fileID: 1550940548}
   m_Layer: 0
   m_Name: SubtractHitbox
-  m_TagString: Player
+  m_TagString: Hit Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

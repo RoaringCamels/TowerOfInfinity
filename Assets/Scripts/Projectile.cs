@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System;
 
 public class Projectile : MonoBehaviour
 {
+    private TMP_Text damageText;
     private string damage = "-2";
     private Rigidbody2D rb;
 
     private GameObject thisParent;
 
-    
+    public void Start()
+    {
+        damageText = GetComponentInChildren<TMP_Text>();
+    }
     private void setDamage(string playerHealth)
     {
         //ex. playerHeatlh is a positve integer
@@ -30,13 +36,33 @@ public class Projectile : MonoBehaviour
         rb.velocity = velocity;
         thisParent = parent;
     }
+    public void ChangeDamage(string attack)
+    {
+        ExpressionTree tree = new ExpressionTree();
+        tree.BuildFromInfix(damage+attack);
+        tree.InorderTraversal();
+        damage = tree.Evaluate().ToString();
+        UpdateDamage();
+    }
+    public void UpdateDamage(){
+        if(damage == "0") {
+            Destroy(gameObject);
+        } else {
+            damageText.text = damage;
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player")) {
-            other.gameObject.GetComponent<PlayerHealth>().ChangeHealth(other.gameObject.GetComponentInParent<PlayerHealth>().health + damage);
+            other.gameObject.GetComponent<PlayerHealth>().ChangeHealth(damage);
+            Destroy(gameObject);
         }
-        if(!other.CompareTag("Enemy"))
+        else if(other.CompareTag("Hit Box"))
+        {
+            Debug.Log($"Hits Projectile");
+        }
+        else if(!other.CompareTag("Enemy"))
         {
             Destroy(gameObject);
         }
