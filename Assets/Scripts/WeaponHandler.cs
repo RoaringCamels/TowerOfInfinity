@@ -6,12 +6,14 @@ using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour
 {    
+    public static WeaponHandler Instance;
+
     private Weapon w1 = new Weapon("w1",1,"-");
     private Weapon w2 = new Weapon("w2",1,"+");
     private Weapon w3 = new Weapon("w3",2,"*");
     private Weapon w4 = new Weapon("w4",2,"/");
 
-    private Weapon[] weapons;
+    public Weapon[] weapons;
     private Weapon currentWeapon;
 
     // Start is called before the first frame update
@@ -20,6 +22,16 @@ public class WeaponHandler : MonoBehaviour
         weapons = new Weapon[] {w1,w2,w3,w4};
         currentWeapon = weapons[0];
         Debug.Log($"Starting Weapon: {currentWeapon.getName()}");
+
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else 
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     // Update is called once per frame
