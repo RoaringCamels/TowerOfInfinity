@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class RewardManager : MonoBehaviour
@@ -10,6 +12,16 @@ public class RewardManager : MonoBehaviour
 
     public bool rewardIsUp = false;
 
+    [Header("Tier 3 Rewards")]
+    public int tier3Wieght;
+    public GameObject[] tier3Rewards;
+    [Header("Tier 2 Rewards")]
+    public int tier2Wieght;
+    public GameObject[] tier2Rewards;
+    [Header("Tier 1 Rewards")]
+    public int tier1Wieght;
+    public GameObject[] tier1Rewards;
+
     void Start()
     {
         if(Instance == null)
@@ -19,20 +31,6 @@ public class RewardManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
-    }
-
-    public void AddCount()
-    {
-        count++;
-        if(count == 0)
-        {
-            DisableRewardMenu();
-        } 
-        else
-        {
-            EnableRewardMenu();
-            
         }
     }
     
@@ -52,8 +50,12 @@ public class RewardManager : MonoBehaviour
 
     public void EnableRewardMenu()
     {
+        for(int i=0; i<3; i++)
+        {
+            GameObject curr= Instantiate(GenerateRewardCard());
+            curr.transform.SetParent(rewardMenu.transform);
+        }
         rewardMenu.SetActive(true);
-
     }
 
     public void DisableRewardMenu()
@@ -65,6 +67,23 @@ public class RewardManager : MonoBehaviour
             count--;
             EnemyKilled();
             
+        }
+    }
+
+    private GameObject GenerateRewardCard()
+    {
+        int random = Random.Range(0, tier3Wieght+tier2Wieght+tier1Wieght);
+        if(random< tier3Wieght)
+        {
+            return tier3Rewards[Random.Range(0, tier3Rewards.Count())];
+        }
+        else if(random< tier3Wieght +tier2Wieght)
+        {
+            return tier3Rewards[Random.Range(0, tier3Rewards.Count())];
+        }
+        else //tier 1
+        {
+            return tier3Rewards[Random.Range(0, tier3Rewards.Count())];
         }
     }
     ///reward menu prefab
