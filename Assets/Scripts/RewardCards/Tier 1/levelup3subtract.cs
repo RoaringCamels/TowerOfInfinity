@@ -32,6 +32,7 @@ public class Levelup3subtract : MonoBehaviour, IReward
     public void Reward()
     {
         WeaponHandler.Instance.weapons[0].LevelUp(3);
+        RewardManager.Instance.DisableRewardMenu();
     }
 
     public void Start()

@@ -66,7 +66,6 @@ public class RewardManager : MonoBehaviour
         {
             count--;
             EnemyKilled();
-            
         }
     }
 
