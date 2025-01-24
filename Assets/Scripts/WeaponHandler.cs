@@ -69,6 +69,8 @@ public class Weapon
 {
     private string name;
     private int level;
+    private int maxlevel;
+    private int minlevel;
     private int baseDamage;
     private string operation;
 
@@ -80,14 +82,17 @@ public class Weapon
     public Weapon(string name, int level, string operation){
         this.name = name;
         this.level = level;
+        this.maxlevel = level;
+        this.minlevel = level;
         this.baseDamage = this.level;
         this.operation = operation;
     }
 
     public void LevelUp(int up=1){
         Debug.Log("LevelUp() called");
+        maxlevel+=up;
         level+=up;
-        Debug.Log($"{name} levelrf up to level {level}!");
+        Debug.Log($"{name} levelrf up to level {maxlevel}!");
     }
 
     public string getcurrOperation()
