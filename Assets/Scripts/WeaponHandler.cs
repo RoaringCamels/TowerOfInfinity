@@ -41,6 +41,10 @@ public class WeaponHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(w2);
         if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(w3);
         if (Input.GetKeyDown(KeyCode.Alpha4)) SwitchWeapon(w4);
+        if (Input.GetKeyDown(InputHandler.Instance.levelKeyLeft))
+        {
+            //decrease weapon level
+        }
 
         if (Input.GetKeyDown(KeyCode.Space)){
             Debug.Log($"Spacebar was pressed.");
@@ -103,4 +107,28 @@ public class Weapon
     {
         return level;
     }
+
+    public void DecreaseLevel()
+    {
+        if(level == minlevel)
+        {
+            level = maxlevel;
+        }
+        else{
+            level--;
+        }
+    }
+
+    public void IncreaseLevel()
+    {
+        if(level == maxlevel)
+        {
+            level = minlevel;
+        }
+        else{
+            level++;
+        }
+    }
+
+
 }

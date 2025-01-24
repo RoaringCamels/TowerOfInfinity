@@ -50,6 +50,11 @@ public class RewardManager : MonoBehaviour
 
     public void EnableRewardMenu()
     {
+        foreach(Transform child in rewardMenu.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         for(int i=0; i<3; i++)
         {
             GameObject curr= Instantiate(GenerateRewardCard());
@@ -72,17 +77,19 @@ public class RewardManager : MonoBehaviour
     private GameObject GenerateRewardCard()
     {
         int random = Random.Range(0, tier3Wieght+tier2Wieght+tier1Wieght);
+        print(tier3Wieght+tier2Wieght+tier1Wieght);
+        print(random);
         if(random< tier3Wieght)
         {
             return tier3Rewards[Random.Range(0, tier3Rewards.Count())];
         }
         else if(random< tier3Wieght +tier2Wieght)
         {
-            return tier3Rewards[Random.Range(0, tier3Rewards.Count())];
+            return tier2Rewards[Random.Range(0, tier2Rewards.Count())];
         }
         else //tier 1
         {
-            return tier3Rewards[Random.Range(0, tier3Rewards.Count())];
+            return tier1Rewards[Random.Range(0, tier1Rewards.Count())];
         }
     }
     ///reward menu prefab

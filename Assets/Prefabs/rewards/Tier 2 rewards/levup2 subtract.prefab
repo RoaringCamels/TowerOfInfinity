@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.61804, g: 0.98490566, b: 0.54820216, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonIcon: {fileID: 6871980638724008187}
   descriptionText: {fileID: 3152766449389507167}
-  icon: {fileID: 0}
+  icon: {fileID: 1138516437612030060, guid: 26219afe650eca349a89f642aec6aaf2, type: 3}
   description: Increase subtraction sword level by two.
 --- !u!1 &3553594203347106783
 GameObject:

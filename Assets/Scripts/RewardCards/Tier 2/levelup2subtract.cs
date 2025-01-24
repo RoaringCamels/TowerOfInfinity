@@ -41,6 +41,5 @@ public class Levelup2subtract : MonoBehaviour, IReward
         buttonIcon.sprite = Icon;
     }
 
-
     
 }
