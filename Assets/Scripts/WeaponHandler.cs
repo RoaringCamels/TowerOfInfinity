@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -15,6 +17,7 @@ public class WeaponHandler : MonoBehaviour
 
     public Weapon[] weapons;
     private Weapon currentWeapon;
+    public TMP_Text[] weaponLevelText;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +34,7 @@ public class WeaponHandler : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        UpdateLevelUI();
     }
 
     // Update is called once per frame
@@ -43,7 +46,13 @@ public class WeaponHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4)) SwitchWeapon(w4);
         if (Input.GetKeyDown(InputHandler.Instance.levelKeyLeft))
         {
-            //decrease weapon level
+            currentWeapon.DecreaseLevel();
+            UpdateLevelUI();
+        }
+        if (Input.GetKeyDown(InputHandler.Instance.levelKeyRight))
+        {
+            currentWeapon.IncreaseLevel();
+            UpdateLevelUI();
         }
 
         if (Input.GetKeyDown(KeyCode.Space)){
@@ -65,6 +74,14 @@ public class WeaponHandler : MonoBehaviour
     public int getCurrentWeaponLevel()
     {
         return currentWeapon.getcurrLevel();
+    }
+
+    public void UpdateLevelUI()
+    {
+        for(int i=0; i< weaponLevelText.Count(); i++)
+        {
+            weaponLevelText[i].text = weapons[i].getLevel().ToString();
+        }
     }
     
 }
@@ -95,7 +112,6 @@ public class Weapon
     public void LevelUp(int up=1){
         Debug.Log("LevelUp() called");
         maxlevel+=up;
-        level+=up;
         Debug.Log($"{name} levelrf up to level {maxlevel}!");
     }
 
@@ -125,7 +141,8 @@ public class Weapon
         {
             level = minlevel;
         }
-        else{
+        else
+        {
             level++;
         }
     }
