@@ -35,6 +35,7 @@ public class WeaponHandler : MonoBehaviour
             Destroy(gameObject);
         }
         UpdateLevelUI();
+        SwitchWeapon(w1, 0);
     }
 
     // Update is called once per frame

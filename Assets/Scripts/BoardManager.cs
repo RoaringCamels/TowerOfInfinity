@@ -82,7 +82,7 @@ public class BoardManager : MonoBehaviour
                 if(x == -1 || x==-2 || y == -1 || y == -2 || y == rows || y== rows+1)
                     toInstantiate = outerWallTiles [Random.Range (0, outerWallTiles.Length)];
 
-                if(( x == currNum +columns || x == currNum + columns -1) && !(y >=rows/2-1 && y <= rows/2+1))
+                if(( x == currNum + columns -1) && !(y >=rows/2-1 && y <= rows/2+1))
                 {
                     toInstantiate = outerWallTiles [Random.Range (0, outerWallTiles.Length)];
                 }
