@@ -5019,7 +5019,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.106803, y: 3, z: -10}
+  m_LocalPosition: {x: 5.1148314, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5820,7 +5820,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionKey: 32
   levelKeyLeft: 0
+  levelKeyRight: 0
   selectKeyLeft: 0
+  selectKeyRight: 0
   upgradeMenu: {fileID: 570302336}
 --- !u!1 &999525077
 GameObject:
@@ -7210,7 +7212,7 @@ Transform:
   m_GameObject: {fileID: 1379693495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.060976, y: 3, z: -10}
+  m_LocalPosition: {x: 4.063306, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9454,6 +9456,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841eaec45173d5e448b187ca530bfa03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponLevelText:
+  - {fileID: 1263742316}
+  - {fileID: 1793125354}
+  - {fileID: 1979957420}
+  - {fileID: 1057511256}
 --- !u!114 &1967309449
 MonoBehaviour:
   m_ObjectHideFlags: 0
