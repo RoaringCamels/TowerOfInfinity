@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponHandler : MonoBehaviour
 {    
@@ -18,6 +15,9 @@ public class WeaponHandler : MonoBehaviour
     public Weapon[] weapons;
     private Weapon currentWeapon;
     public TMP_Text[] weaponLevelText;
+    public Image[] Frames;
+    public Sprite unselectedFrame;
+    public Sprite selectedFrame;
 
     // Start is called before the first frame update
     void Start()
@@ -40,10 +40,10 @@ public class WeaponHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(w1);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(w2);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(w3);
-        if (Input.GetKeyDown(KeyCode.Alpha4)) SwitchWeapon(w4);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(w1, 0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(w2, 1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(w3, 2);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) SwitchWeapon(w4, 3);
         if (Input.GetKeyDown(InputHandler.Instance.levelKeyLeft))
         {
             currentWeapon.DecreaseLevel();
@@ -62,8 +62,19 @@ public class WeaponHandler : MonoBehaviour
         }
     }
 
-    void SwitchWeapon(Weapon weapon){
+    void SwitchWeapon(Weapon weapon, int weaponIndex){
         currentWeapon = weapon;
+        for(int i=0; i < weapons.Count(); i++)
+        {
+            if(i == weaponIndex)
+            {
+                Frames[weaponIndex].sprite = selectedFrame;
+            }
+            else
+            {
+                Frames[i].sprite = selectedFrame;
+            }
+        }
         Debug.Log($"Switched to: {currentWeapon.getName()}");
     }
 

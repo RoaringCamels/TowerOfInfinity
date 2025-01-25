@@ -9461,6 +9461,13 @@ MonoBehaviour:
   - {fileID: 1793125354}
   - {fileID: 1979957420}
   - {fileID: 1057511256}
+  Frames:
+  - {fileID: 1010926311}
+  - {fileID: 653362090}
+  - {fileID: 448207742}
+  - {fileID: 1374513942}
+  unselectedFrame: {fileID: 0}
+  selectedFrame: {fileID: 0}
 --- !u!114 &1967309449
 MonoBehaviour:
   m_ObjectHideFlags: 0
