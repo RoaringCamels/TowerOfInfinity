@@ -72,7 +72,7 @@ public class WeaponHandler : MonoBehaviour
             }
             else
             {
-                Frames[i].sprite = selectedFrame;
+                Frames[i].sprite = unselectedFrame;
             }
         }
         Debug.Log($"Switched to: {currentWeapon.getName()}");
