@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
 
     public GameObject projectilePrefab;
 
+    public LayerMask enemyLayer;
+
 
 
     void OnEnable()
@@ -84,8 +86,11 @@ public class Enemy : MonoBehaviour
     }
 
     void Move(Vector2 playerPosition) {
+       
         if(Vector2.Distance((Vector2)transform.position, playerPosition) < 8)
         {
+            RaycastHit2D enemyHit;
+            
             float xDif = transform.position.x - playerPosition.x;
             float yDif = transform.position.y - playerPosition.y;
             if(Mathf.Abs(xDif) > 2 || Mathf.Abs(yDif) > 2) // is away from player
@@ -95,26 +100,52 @@ public class Enemy : MonoBehaviour
                 {
                     if(xDif>=0)
                     {
-                        StartCoroutine(SmoothMovement(new Vector3(transform.position.x-1, transform.position.y, 0)));
+                        //this is left movement
+                        Vector2 start = transform.position;
+                        Vector2 end = new Vector2(-1, 0);
+                        enemyHit = Physics2D.Linecast(start, end, enemyLayer);
+                        if(enemyHit.transform == null)
+                        {
+                            StartCoroutine(SmoothMovement(new Vector3(transform.position.x-1, transform.position.y, 0)));
+                        }
+                       
                     }
                     else{
-                        StartCoroutine(SmoothMovement(new Vector3(transform.position.x+1, transform.position.y, 0)));
+                        Vector2 start = transform.position;
+                        Vector2 end = new Vector2(1, 0);
+                        enemyHit = Physics2D.Linecast(start, end, enemyLayer);
+                        if(enemyHit.transform == null)
+                        {
+                            StartCoroutine(SmoothMovement(new Vector3(transform.position.x+1, transform.position.y, 0)));
+                        }
                     }
                     
                 }
                 else {
                     if(yDif>=0)
                     {
-                        StartCoroutine(SmoothMovement(new Vector3(transform.position.x, transform.position.y-1, 0)));
+                        Vector2 start = transform.position;
+                        Vector2 end = new Vector2(0, -1);
+                        enemyHit = Physics2D.Linecast(start, end, enemyLayer);
+                        if(enemyHit.transform == null)
+                        {
+                            StartCoroutine(SmoothMovement(new Vector3(transform.position.x, transform.position.y-1, 0)));
+                        }
                     }
                     else
                     {
-                        StartCoroutine(SmoothMovement(new Vector3(transform.position.x, transform.position.y+1, 0)));
+                        Vector2 start = transform.position;
+                        Vector2 end = new Vector2(0, 1);
+                        enemyHit = Physics2D.Linecast(start, end, enemyLayer);
+                        if(enemyHit.transform == null)
+                        {
+                            StartCoroutine(SmoothMovement(new Vector3(transform.position.x, transform.position.y+1, 0)));
+                        }
                     }
                 }
             } 
         }
-
+       
     }
 
     protected IEnumerator SmoothMovement (Vector3 end)
@@ -123,6 +154,7 @@ public class Enemy : MonoBehaviour
         //Calculate the remaining distance to move based on the square magnitude of the difference between current position and end parameter. 
         //Square magnitude is used instead of magnitude because it's computationally cheaper.
         //isPlayerMoving = true;
+        rb2D.bodyType = RigidbodyType2D.Dynamic;
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 
         //While that distance is greater than a very small amount (Epsilon, almost zero):
@@ -140,6 +172,7 @@ public class Enemy : MonoBehaviour
             //Return and loop until sqrRemainingDistance is close enough to zero to end the function
             yield return null;
         }
+        rb2D.bodyType = RigidbodyType2D.Static;
         //isPlayerMoving = false;
     }
 

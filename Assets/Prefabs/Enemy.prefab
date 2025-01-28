@@ -52,6 +52,9 @@ MonoBehaviour:
   health: 20
   moveTime: 0.1
   projectilePrefab: {fileID: 6864133168397460374, guid: bdfbbe46737b4984e808436e204a2262, type: 3}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!58 &1605354388212223840
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -95,7 +98,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286945708081363910}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -137,7 +140,7 @@ GameObject:
   - component: {fileID: 8916254128307617023}
   - component: {fileID: 8127764862842914985}
   - component: {fileID: 7433237106204632221}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
