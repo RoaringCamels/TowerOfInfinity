@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    [Header("Player Object")]
+    public GameObject playerObject;
    private PlayerMovement playerMovement;
    void Start()
    {
@@ -13,11 +15,11 @@ public class PlayerAnimation : MonoBehaviour
    {
         if(direction == 0)    // facing right
         {
-            transform.localScale = new Vector2(1,1);
+            playerObject.transform.localScale = new Vector2(-.8f, .7f);
         }
         else if(direction == 1)    // facing left
         {
-            transform.localScale = new Vector2(-1,1);
+            playerObject.transform.localScale = new Vector2(0.8f,.7f);
         }
    }
 }

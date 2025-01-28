@@ -1,9 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
 using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class Enemy : MonoBehaviour
 {
@@ -25,7 +25,9 @@ public class Enemy : MonoBehaviour
     public GameObject projectilePrefab;
 
     public LayerMask enemyLayer;
-
+    //public PlayerHealth playerHealth;
+    public Animator animator;
+    public GameObject thisObject;
 
 
     void OnEnable()
@@ -50,6 +52,8 @@ public class Enemy : MonoBehaviour
         inverseMoveTime = 1 / moveTime;
         healthText = GetComponentInChildren<TMP_Text>();
         healthText.text = health.ToString();
+        //playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
+        animator.SetInteger("State", 0);
         this.enabled = false;
     }
    
@@ -106,16 +110,19 @@ public class Enemy : MonoBehaviour
                         enemyHit = Physics2D.Linecast(start, end, enemyLayer);
                         if(enemyHit.transform == null)
                         {
+                            thisObject.transform.localScale = new Vector2(-5f, 5f);
                             StartCoroutine(SmoothMovement(new Vector3(transform.position.x-1, transform.position.y, 0)));
                         }
                        
                     }
                     else{
+                        //this is right movement
                         Vector2 start = transform.position;
                         Vector2 end = new Vector2(1, 0);
                         enemyHit = Physics2D.Linecast(start, end, enemyLayer);
                         if(enemyHit.transform == null)
                         {
+                            thisObject.transform.localScale = new Vector2(5f, 5f);
                             StartCoroutine(SmoothMovement(new Vector3(transform.position.x+1, transform.position.y, 0)));
                         }
                     }
@@ -124,6 +131,7 @@ public class Enemy : MonoBehaviour
                 else {
                     if(yDif>=0)
                     {
+                        //this is down movement
                         Vector2 start = transform.position;
                         Vector2 end = new Vector2(0, -1);
                         enemyHit = Physics2D.Linecast(start, end, enemyLayer);
@@ -134,6 +142,7 @@ public class Enemy : MonoBehaviour
                     }
                     else
                     {
+                        //this is up movement
                         Vector2 start = transform.position;
                         Vector2 end = new Vector2(0, 1);
                         enemyHit = Physics2D.Linecast(start, end, enemyLayer);
@@ -156,7 +165,7 @@ public class Enemy : MonoBehaviour
         //isPlayerMoving = true;
         rb2D.bodyType = RigidbodyType2D.Dynamic;
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-
+        animator.SetInteger("State", 1);
         //While that distance is greater than a very small amount (Epsilon, almost zero):
         while(sqrRemainingDistance > float.Epsilon)
         {
@@ -172,6 +181,7 @@ public class Enemy : MonoBehaviour
             //Return and loop until sqrRemainingDistance is close enough to zero to end the function
             yield return null;
         }
+        animator.SetInteger("State", 0);
         rb2D.bodyType = RigidbodyType2D.Static;
         //isPlayerMoving = false;
     }
@@ -182,7 +192,18 @@ public class Enemy : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         Vector2 velocity = new Vector2(playerPosition.x - transform.position.x, playerPosition.y - transform.position.y);
 
+        //can set the text of the projectile
+        //get player health to determine what operation to do
+        
+        StartCoroutine(AttackAnimationTimer());
         projectile.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
+    }
+
+    private IEnumerator AttackAnimationTimer()
+    {
+        animator.SetInteger("State", 2);
+        yield return new WaitForSeconds(.5f);
+        animator.SetInteger("State", 0);
     }
 
 }
