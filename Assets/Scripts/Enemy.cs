@@ -4,6 +4,7 @@ using TMPro;
 using System;
 using Unity.VisualScripting;
 using System.Collections.Generic;
+using UnityEngine.Audio;
 
 public class Enemy : MonoBehaviour
 {
@@ -24,10 +25,16 @@ public class Enemy : MonoBehaviour
 
     public GameObject projectilePrefab;
 
-    public LayerMask enemyLayer;
+    public LayerMask projectileLayer;
     //public PlayerHealth playerHealth;
     public Animator animator;
     public GameObject thisObject;
+    public BoxCollider2D collider2d;
+    public CircleCollider2D outerCollider2d;
+
+    [Header("SFX")]
+    public AudioMixerGroup SFXamg;
+    public AudioClip shootSFX;
 
 
     void OnEnable()
@@ -51,6 +58,7 @@ public class Enemy : MonoBehaviour
         rb2D = GetComponentInChildren<Rigidbody2D>();
         inverseMoveTime = 1 / moveTime;
         healthText = GetComponentInChildren<TMP_Text>();
+        //collider2d = GetComponentInChildren<BoxCollider2D>();
         healthText.text = health.ToString();
         //playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
         animator.SetInteger("State", 0);
@@ -106,20 +114,32 @@ public class Enemy : MonoBehaviour
                     {
                         //this is left movement
                         Vector2 start = transform.position;
-                        Vector2 end = new Vector2(-1, 0);
-                        enemyHit = Physics2D.Linecast(start, end, enemyLayer);
+                        Vector2 end = new Vector2(transform.position.x-1, transform.position.y);
+                        collider2d.enabled = false;
+                        outerCollider2d.enabled = false;
+                        enemyHit = Physics2D.Linecast(start, end, projectileLayer);
+                        collider2d.enabled = true;
+                        outerCollider2d.enabled = true;
                         if(enemyHit.transform == null)
                         {
                             thisObject.transform.localScale = new Vector2(-5f, 5f);
                             StartCoroutine(SmoothMovement(new Vector3(transform.position.x-1, transform.position.y, 0)));
+                        }
+                        else
+                        {
+                            Debug.Log(enemyHit.transform.gameObject.name);
                         }
                        
                     }
                     else{
                         //this is right movement
                         Vector2 start = transform.position;
-                        Vector2 end = new Vector2(1, 0);
-                        enemyHit = Physics2D.Linecast(start, end, enemyLayer);
+                        Vector2 end = new Vector2(transform.position.x+1, transform.position.y);
+                        collider2d.enabled = false;
+                        outerCollider2d.enabled = false;
+                        enemyHit = Physics2D.Linecast(start, end, projectileLayer);
+                        collider2d.enabled = true;
+                        outerCollider2d.enabled = true;
                         if(enemyHit.transform == null)
                         {
                             thisObject.transform.localScale = new Vector2(5f, 5f);
@@ -133,8 +153,12 @@ public class Enemy : MonoBehaviour
                     {
                         //this is down movement
                         Vector2 start = transform.position;
-                        Vector2 end = new Vector2(0, -1);
-                        enemyHit = Physics2D.Linecast(start, end, enemyLayer);
+                        Vector2 end = new Vector2(transform.position.x, transform.position.y-1);
+                        collider2d.enabled = false;
+                        outerCollider2d.enabled = false;
+                        enemyHit = Physics2D.Linecast(start, end, projectileLayer);
+                        collider2d.enabled = true;
+                        outerCollider2d.enabled = true;
                         if(enemyHit.transform == null)
                         {
                             StartCoroutine(SmoothMovement(new Vector3(transform.position.x, transform.position.y-1, 0)));
@@ -144,8 +168,12 @@ public class Enemy : MonoBehaviour
                     {
                         //this is up movement
                         Vector2 start = transform.position;
-                        Vector2 end = new Vector2(0, 1);
-                        enemyHit = Physics2D.Linecast(start, end, enemyLayer);
+                        Vector2 end = new Vector2(transform.position.x, transform.position.y+1);
+                        collider2d.enabled = false;
+                        outerCollider2d.enabled = false;
+                        enemyHit = Physics2D.Linecast(start, end, projectileLayer);
+                        collider2d.enabled = true;
+                        outerCollider2d.enabled = true;
                         if(enemyHit.transform == null)
                         {
                             StartCoroutine(SmoothMovement(new Vector3(transform.position.x, transform.position.y+1, 0)));
@@ -196,6 +224,7 @@ public class Enemy : MonoBehaviour
         //get player health to determine what operation to do
         
         StartCoroutine(AttackAnimationTimer());
+        AudioManager.Instance.PlayOneShotVariedPitch(shootSFX, 1f, SFXamg, .1f);
         projectile.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
     }
 

@@ -124,8 +124,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3345245061972218298}
-        m_TargetAssemblyTypeName: Levelup2subtract, Assembly-CSharp
-        m_MethodName: Reward
+        m_TargetAssemblyTypeName: BaseReward, Assembly-CSharp
+        m_MethodName: OnRewardSelected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -151,6 +151,8 @@ MonoBehaviour:
   descriptionText: {fileID: 3152766449389507167}
   icon: {fileID: 1138516437612030060, guid: 26219afe650eca349a89f642aec6aaf2, type: 3}
   description: Increase subtraction sword level by two.
+  confirmSFX: {fileID: 8300000, guid: c5cb2ac29e89dbf43a9b644caaad45e6, type: 3}
+  UIamg: {fileID: -6961386016481578428, guid: 7e4d1e11053ed7644b10d39f4a58cc2b, type: 2}
 --- !u!1 &3553594203347106783
 GameObject:
   m_ObjectHideFlags: 0

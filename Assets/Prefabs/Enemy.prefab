@@ -52,12 +52,15 @@ MonoBehaviour:
   health: 20
   moveTime: 0.1
   projectilePrefab: {fileID: 6864133168397460374, guid: bdfbbe46737b4984e808436e204a2262, type: 3}
-  enemyLayer:
+  projectileLayer:
     serializedVersion: 2
     m_Bits: 0
-  playerHealth: {fileID: 0}
   animator: {fileID: 728666125635954205}
   thisObject: {fileID: 4880232668136982583}
+  collider2d: {fileID: 2317504115274444580}
+  outerCollider2d: {fileID: 1605354388212223840}
+  SFXamg: {fileID: 2286712118783445282, guid: 7e4d1e11053ed7644b10d39f4a58cc2b, type: 2}
+  shootSFX: {fileID: 8300000, guid: e1e2d06fe0d78194b9c7c8cc88414d0d, type: 3}
 --- !u!58 &1605354388212223840
 CircleCollider2D:
   m_ObjectHideFlags: 0
