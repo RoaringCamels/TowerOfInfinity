@@ -9,14 +9,22 @@ public class Projectile : MonoBehaviour
     private TMP_Text damageText;
     private string damage = "-2";
     private Rigidbody2D rb;
-
     private GameObject thisParent;
+    private PlayerHealth playerHealthObject;
+   
 
     public void Start()
     {
-        damageText = GetComponentInChildren<TMP_Text>();
+        
+        
     }
-    private void setDamage(string playerHealth)
+    void Awake()
+    {
+        playerHealthObject = GameObject.Find("Player").GetComponent<PlayerHealth>();
+        damageText = GetComponent<TMP_Text>();
+
+    }
+    public void setDamage(string playerHealth)
     {
         //ex. playerHeatlh is a positve integer
         // damage = "-" + (int)(Math.Random()*2*level) + level
@@ -28,12 +36,31 @@ public class Projectile : MonoBehaviour
         // damage = "*" + (int)(Math.Random()*2) + level -1;    50% chance to get the right denominator;
 
         // "/" is implemented by a boss.
+        if(playerHealth.Contains('/'))
+        {
+            damage = '*' + ((int)(UnityEngine.Random.Range(1, 4) * 2)-1).ToString() ; //currently doesn't take into account the level
+        }
+        else if(playerHealth[0] == '-')
+        {
+            damage = '+' + ((int)(UnityEngine.Random.Range(1, 4) * 2)).ToString(); //currently doesn't take into account the level
+        }
+        else
+        {
+            damage = '-' + ((int)(UnityEngine.Random.Range(1, 4) * 2)).ToString(); //currently doesn't take into account the level
+        }
+        UpdateDamage();
+
+        
+        
     }
 
     public void FireProjectile(Vector2 velocity, GameObject parent)
     {  
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = velocity;
+    
+        setDamage(playerHealthObject.health);
+       
         thisParent = parent;
     }
     public void ChangeDamage(string attack)
@@ -48,7 +75,15 @@ public class Projectile : MonoBehaviour
         if(damage == "0") {
             Destroy(gameObject);
         } else {
-            damageText.text = damage;
+            if(damageText != null)
+            {
+                damageText.text = damage;
+            }
+            else
+            {
+                Debug.Log("Failed to update damage");
+            }
+           
         }
     }
 

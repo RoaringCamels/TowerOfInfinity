@@ -16,6 +16,8 @@ public class WeaponHandler : MonoBehaviour
     private Weapon currentWeapon;
     public TMP_Text[] weaponLevelText;
     public Image[] Frames;
+    public Image[] weaponIcons;
+    public SpriteRenderer heldWeaponImage;
     public Sprite unselectedFrame;
     public Sprite selectedFrame;
 
@@ -65,6 +67,8 @@ public class WeaponHandler : MonoBehaviour
 
     void SwitchWeapon(Weapon weapon, int weaponIndex){
         currentWeapon = weapon;
+        Debug.Log($"Switching icon to {weaponIcons[weaponIndex].sprite.name}");
+        heldWeaponImage.sprite = weaponIcons[weaponIndex].sprite;
         for(int i=0; i < weapons.Count(); i++)
         {
             if(i == weaponIndex)

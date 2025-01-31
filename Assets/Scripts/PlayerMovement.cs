@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour {
@@ -19,6 +20,9 @@ public class PlayerMovement : MonoBehaviour {
     private bool isPlayerMoving;
     private PlayerAnimation playerAnimation;
     public int currentDirection;
+    [Header("Sound Effects")]
+    public AudioMixerGroup SFXamg;
+    public AudioClip footstepSFX;
     // 0 == right
     // 1 == left
     // 2 == up
@@ -138,6 +142,7 @@ public class PlayerMovement : MonoBehaviour {
         if(wallHit.transform == null && enemyHit.transform == null && !isPlayerMoving)
         {
             //If nothing was hit, start SmoothMovement co-routine passing in the Vector2 end as destination
+            AudioManager.Instance.PlayOneShotVariedPitch(footstepSFX, 1f, SFXamg, .05f);
             StartCoroutine(SmoothMovement (end));
 
             //Return true to say that Move was successful

@@ -43,6 +43,8 @@ public class BoardManager : MonoBehaviour
     //A list of possible locations to place tiles.
     private List <Vector3> gridPositions = new List <Vector3> ();
 
+    public int numEnemiesAlive = 0;
+
 
     //Clears our list gridPositions and prepares it to generate a new board.
     void InitialiseList (int currNum)
@@ -157,7 +159,8 @@ public class BoardManager : MonoBehaviour
 
             //Determine number of enemies based on current level number, based on a logarithmic progression
             enemyCount = (int)Mathf.Log(level, 2f);
-
+            //add number of enemies to spawn to enemy count.
+            numEnemiesAlive += enemyCount;
             //Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
             LayoutObjectAtRandom (enemyTiles, enemyCount, enemyCount);
             level++;
@@ -172,5 +175,10 @@ public class BoardManager : MonoBehaviour
                 instance.transform.SetParent (boardHolder);
             }
         }
+    }
+
+    public void EnemyKilled()
+    {
+        numEnemiesAlive -= 1;
     }
 }
