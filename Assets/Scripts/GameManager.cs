@@ -43,7 +43,11 @@ using System.Collections.Generic;        //Allows us to use Lists.
         {
             //Call the SetupScene function of the BoardManager script, pass it current level number.
             //boardScript.SetupScene(level);
-            tilemapSetup.Generate();
+            if(tilemapSetup.initializing == false)
+            {
+                //tilemapSetup.Generate();
+            }   
+            
 
         }
 

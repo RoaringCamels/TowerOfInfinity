@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
+using UnityEngine.Tilemaps;
 public class TilemapSetup : MonoBehaviour
 {
     [Header("References")]
     public GameObject mainGrid;
     public GameObject spawnRoomPreset;
     public List<GameObject> roomPresets; 
+    public List<GameObject> enemies;
 
     [Header("Properties")]
     private int currentX;
@@ -16,13 +18,16 @@ public class TilemapSetup : MonoBehaviour
     public int maxRoomsLength;
     private int[,] gridPositions;
     public int numRooms;
-
+    public bool initializing = true;
+    public BoundsInt area;
 
 
     void Awake()
     {
         InitializeGridPositions();
-        //Generate();
+        Generate();
+
+        initializing = false;
     }
 
     public void InitializeGridPositions()
@@ -64,7 +69,23 @@ public class TilemapSetup : MonoBehaviour
             {
                 currentY++;
                 //generate new room here
-                GenerateNewRoom(currentX, currentY);
+                //have it return a reference to itself, then we can access it's enemy tilemap
+                GameObject room =GenerateNewRoom(currentX, currentY);
+                Tilemap enemyTilemap = room.transform.GetChild(2).GetComponent<Tilemap>();
+                //now can get all tiles on this map, each one will be an enemy spawn location.\
+               
+                BoundsInt bounds = enemyTilemap.cellBounds;
+                
+                TileBase[] enemySpawnTiles = enemyTilemap.GetTilesBlock(bounds);
+                for (int x = 0; x < bounds.size.x; x++) {
+                    for (int y = 0; y < bounds.size.y; y++) {
+                        TileBase tile = enemySpawnTiles[x + y * bounds.size.x];
+                        if (tile != null) {
+                            //here, x and y should be enemy spawn position
+                            Instantiate(enemies[Random.Range(0, enemies.Count)], new Vector2(currentX*roomWidth + x-1.5f, currentY*roomWidth+y-.5f), Quaternion.identity);
+                        } 
+                    }
+                }        
                 numRooms -= 1;
                 //check if left is a valid option, if it is spawn a room here
                 //if its not occupied
@@ -74,7 +95,23 @@ public class TilemapSetup : MonoBehaviour
             {
                 currentX--;
                 //generate new room here
-                GenerateNewRoom(currentX, currentY);
+                //have it return a reference to itself, then we can access it's enemy tilemap
+                GameObject room =GenerateNewRoom(currentX, currentY);
+                Tilemap enemyTilemap = room.transform.GetChild(2).GetComponent<Tilemap>();
+                //now can get all tiles on this map, each one will be an enemy spawn location.\
+               
+                BoundsInt bounds = enemyTilemap.cellBounds;
+                
+                TileBase[] enemySpawnTiles = enemyTilemap.GetTilesBlock(bounds);
+                for (int x = 0; x < bounds.size.x; x++) {
+                    for (int y = 0; y < bounds.size.y; y++) {
+                        TileBase tile = enemySpawnTiles[x + y * bounds.size.x];
+                        if (tile != null) {
+                            //here, x and y should be enemy spawn position
+                            Instantiate(enemies[Random.Range(0, enemies.Count)], new Vector2(currentX*roomWidth + x-1.5f, currentY*roomWidth+y-.5f), Quaternion.identity);
+                        } 
+                    }
+                }        
                 numRooms -= 1;
                 //check if left is a valid option, if it is spawn a room here
                 //if its not occupied
@@ -83,8 +120,24 @@ public class TilemapSetup : MonoBehaviour
             else if(num == 2 && gridPositions[currentX, currentY-1] != 1) //up
             {
                 currentY--;
-                //generate new room here
-                GenerateNewRoom(currentX, currentY);
+                ///generate new room here
+                //have it return a reference to itself, then we can access it's enemy tilemap
+                GameObject room =GenerateNewRoom(currentX, currentY);
+                Tilemap enemyTilemap = room.transform.GetChild(2).GetComponent<Tilemap>();
+                //now can get all tiles on this map, each one will be an enemy spawn location.\
+               
+                BoundsInt bounds = enemyTilemap.cellBounds;
+                
+                TileBase[] enemySpawnTiles = enemyTilemap.GetTilesBlock(bounds);
+                for (int x = 0; x < bounds.size.x; x++) {
+                    for (int y = 0; y < bounds.size.y; y++) {
+                        TileBase tile = enemySpawnTiles[x + y * bounds.size.x];
+                        if (tile != null) {
+                            //here, x and y should be enemy spawn position
+                            Instantiate(enemies[Random.Range(0, enemies.Count)], new Vector2(currentX*roomWidth + x-1.5f, currentY*roomWidth+y-.5f), Quaternion.identity);
+                        } 
+                    }
+                }        
                 numRooms -= 1;
                 //check if left is a valid option, if it is spawn a room here
                 //if its not occupied
@@ -94,7 +147,23 @@ public class TilemapSetup : MonoBehaviour
             {
                 currentX++;
                 //generate new room here
-                GenerateNewRoom(currentX, currentY);
+                //have it return a reference to itself, then we can access it's enemy tilemap
+                GameObject room =GenerateNewRoom(currentX, currentY);
+                Tilemap enemyTilemap = room.transform.GetChild(2).GetComponent<Tilemap>();
+                //now can get all tiles on this map, each one will be an enemy spawn location.\
+               
+                BoundsInt bounds = enemyTilemap.cellBounds;
+                
+                TileBase[] enemySpawnTiles = enemyTilemap.GetTilesBlock(bounds);
+                for (int x = 0; x < bounds.size.x; x++) {
+                    for (int y = 0; y < bounds.size.y; y++) {
+                        TileBase tile = enemySpawnTiles[x + y * bounds.size.x];
+                        if (tile != null) {
+                            //here, x and y should be enemy spawn position
+                            Instantiate(enemies[Random.Range(0, enemies.Count)], new Vector2(currentX*roomWidth + x-1.5f, currentY*roomWidth+y-.5f), Quaternion.identity);
+                        } 
+                    }
+                }        
                 numRooms -= 1;
                 //check if left is a valid option, if it is spawn a room here
                 //if its not occupied
@@ -123,14 +192,24 @@ public class TilemapSetup : MonoBehaviour
     }
 
 
-    public void GenerateNewRoom(int x, int y)
+    public GameObject GenerateNewRoom(int x, int y)
     {
         //instantiate the preset at the given position
         //set the preset's parent to the grid object
-        GameObject spawned = Instantiate(roomPresets[Random.Range(0, roomPresets.Count)], new Vector2(x * roomWidth, y * roomWidth), Quaternion.identity);
-        spawned.transform.SetParent(mainGrid.transform);
-        //set this grid position to 1
-        gridPositions[x, y] = 1;
+        if(roomPresets.Count > 0)
+        {
+            GameObject spawned = Instantiate(roomPresets[Random.Range(0, roomPresets.Count)], new Vector2(x * roomWidth, y * roomWidth), Quaternion.identity);
+            spawned.transform.SetParent(mainGrid.transform);
+            //set this grid position to 1
+            gridPositions[x, y] = 1;
+            return spawned;
+        }
+        else
+        {
+            Debug.Log("Error, no room presets found");
+            return null;
+        }
+        
     }
 
 
