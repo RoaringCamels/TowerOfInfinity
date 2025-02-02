@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 public class TilemapSetup : MonoBehaviour
@@ -20,19 +21,35 @@ public class TilemapSetup : MonoBehaviour
     public int numRooms;
     public bool initializing = true;
     public BoundsInt area;
+    public Tilemap boundaryTilemap;
+    public TileBase boundaryTile;
 
 
     void Awake()
     {
         InitializeGridPositions();
+        FillBoundaryTilemap();
         Generate();
-
+        
         initializing = false;
     }
 
     public void InitializeGridPositions()
     {
         gridPositions = new int[maxRoomsLength, maxRoomsLength]; // values default to 0
+    }
+
+    void FillBoundaryTilemap()
+    {
+        int length = maxRoomsLength * roomWidth;
+        for(int i =0; i < length; i++)
+        {
+            for(int j = 0; j < length; j++)
+            {
+                //place a black tile
+                boundaryTilemap.SetTile(new Vector3Int(i, j), boundaryTile);
+            }
+        }
     }
 
     public void Generate()
@@ -60,6 +77,16 @@ public class TilemapSetup : MonoBehaviour
         currentX= 1;
         currentY = maxRoomsLength/2;
         GenerateNewRoom(currentX, currentY);
+        for(int i = currentX*roomWidth; i < (currentX*roomWidth)+roomWidth; i++)
+            {
+                for(int j = currentY*roomWidth; j < (currentY*roomWidth)+roomWidth; j++)
+                {
+                    //i and j should be positions of the tiles
+                    //remove tiles in the boundary map.
+                    boundaryTilemap.SetTile(new Vector3Int(i, j), null);
+                }
+            }
+        
         numRooms -= 1;
         while(numRooms > 0)
         {
@@ -148,8 +175,9 @@ public class TilemapSetup : MonoBehaviour
                 currentX++;
                 //generate new room here
                 //have it return a reference to itself, then we can access it's enemy tilemap
-                GameObject room =GenerateNewRoom(currentX, currentY);
+                GameObject room = GenerateNewRoom(currentX, currentY);
                 Tilemap enemyTilemap = room.transform.GetChild(2).GetComponent<Tilemap>();
+                Tilemap wallTilemap = room.transform.GetChild(1).GetComponent<Tilemap>();
                 //now can get all tiles on this map, each one will be an enemy spawn location.\
                
                 BoundsInt bounds = enemyTilemap.cellBounds;
@@ -173,7 +201,15 @@ public class TilemapSetup : MonoBehaviour
             {
                 continue;
             }
-            
+            for(int i = currentX*roomWidth; i < (currentX*roomWidth)+roomWidth; i++)
+            {
+                for(int j = currentY*roomWidth; j < (currentY*roomWidth)+roomWidth; j++)
+                {
+                    //i and j should be positions of the tiles
+                    //remove tiles in the boundary map.
+                    boundaryTilemap.SetTile(new Vector3Int(i, j), null);
+                }
+            }
         }
 
 
@@ -187,7 +223,15 @@ public class TilemapSetup : MonoBehaviour
         //set the preset's parent to the grid object
         GameObject spawned = Instantiate(spawnRoomPreset, new Vector2(x*roomWidth, y * roomWidth), Quaternion.identity);
         spawned.transform.SetParent(mainGrid.transform);
-
+        for(int i = x*roomWidth; i < (x*roomWidth)+roomWidth; i++)
+        {
+            for(int j = y*roomWidth; j < (y*roomWidth)+roomWidth; j++)
+            {
+                //i and j should be positions of the tiles
+                //remove tiles in the boundary map.
+                boundaryTilemap.SetTile(new Vector3Int(i, j), null);
+            }
+        }
 
     }
 

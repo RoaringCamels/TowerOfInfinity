@@ -1138,7 +1138,7 @@ GameObject:
   - component: {fileID: 4898504061291989090}
   - component: {fileID: 7549543599476595199}
   - component: {fileID: 918336993882723350}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Preset1Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
