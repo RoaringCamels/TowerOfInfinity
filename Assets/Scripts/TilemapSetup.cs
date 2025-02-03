@@ -42,7 +42,7 @@ public class TilemapSetup : MonoBehaviour
     void FillBoundaryTilemap()
     {
         int length = maxRoomsLength * roomWidth;
-        for(int i =0; i < length; i++)
+        for(int i =-1; i < length; i++)
         {
             for(int j = 0; j < length; j++)
             {
