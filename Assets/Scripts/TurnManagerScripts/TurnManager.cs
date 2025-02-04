@@ -46,7 +46,12 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator EnemyTurn(){
         foreach(var enemy in enemies){
+            enemy.StartTurn();
+
             enemy.TakeTurn();
+            
+            enemy.MoveToPlayer();
+            enemy.AttackPlayer();
             yield return new WaitForSeconds(1f); //wait time between enemy turns
         }
         currentTurn = TurnState.PlayerTurn;
