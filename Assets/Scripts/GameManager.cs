@@ -8,6 +8,7 @@ using System.Collections.Generic;        //Allows us to use Lists.
         public static GameManager instance = null;
         //Store a reference to our BoardManager which will set up the level.
         private BoardManager boardScript;
+        private TilemapSetup tilemapSetup;
         //Current level number, expressed in game as "Day  1".
         private int level = 3;
 
@@ -30,7 +31,8 @@ using System.Collections.Generic;        //Allows us to use Lists.
             DontDestroyOnLoad(gameObject);
 
             //Get a component reference to the attached BoardManager script
-            boardScript = GetComponent<BoardManager>();
+            //boardScript = GetComponent<BoardManager>();
+            tilemapSetup = GetComponent<TilemapSetup>();
 
             //Call the InitGame function to initialize the first level 
             InitGame();
@@ -40,7 +42,12 @@ using System.Collections.Generic;        //Allows us to use Lists.
         void InitGame()
         {
             //Call the SetupScene function of the BoardManager script, pass it current level number.
-            boardScript.SetupScene(level);
+            //boardScript.SetupScene(level);
+            if(tilemapSetup.initializing == false)
+            {
+                //tilemapSetup.Generate();
+            }   
+            
 
         }
 

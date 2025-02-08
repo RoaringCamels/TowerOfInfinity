@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour {
     private bool isPlayerMoving;
     private PlayerAnimation playerAnimation;
     public int currentDirection;
+    public TilemapSetup tilemapSetup;
     [Header("Sound Effects")]
     public AudioMixerGroup SFXamg;
     public AudioClip footstepSFX;
@@ -40,6 +41,9 @@ public class PlayerMovement : MonoBehaviour {
 
         //By storing the reciprocal of the move time we can use it by multiplying instead of dividing, this is more efficient.
         inverseMoveTime = 1f / moveTime;
+
+        //lets set the player's position in the center of the tile room
+        transform.position = new Vector3(tilemapSetup.roomWidth/2f, tilemapSetup.roomWidth * (tilemapSetup.maxRoomsLength/2) + (tilemapSetup.roomWidth / 2f), 0);
     }
 
     // Update is called once per frame
