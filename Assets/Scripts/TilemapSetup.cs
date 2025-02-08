@@ -76,12 +76,12 @@ public class TilemapSetup : MonoBehaviour
             gridPositions[i, 0] = 1;
             gridPositions[i, maxRoomsLength-1] = 1;
         }
-        GenerateSpawnRoom(0, maxRoomsLength/2);
+        GenerateSpawnRoom(0, 0);
 
         
         
         currentX= 1;
-        currentY = maxRoomsLength/2;
+        currentY = 0;
         previousRoom = GenerateNewRoom(currentX, currentY);
         Tilemap previousRoomTilemap = previousRoom.transform.GetChild(1).GetComponent<Tilemap>();
         previousRoomTilemap.SetTile(new Vector3Int(0, roomWidth/2-1), null);
@@ -101,7 +101,24 @@ public class TilemapSetup : MonoBehaviour
         numRooms -= 1;
         while(numRooms > 0)
         {
-            int num = Random.Range(0, 4);
+            if (numRooms == 1)
+            {
+                //BOSS ROOM SPAWNING
+                //boss room always spawns up.
+
+                if(previousRoom != null)
+                {
+                    Debug.Log($"Destroying tiles on tilemap {previousRoom.name} at positions \n {roomWidth/2 -1}, {roomWidth-1} \n {roomWidth/2}, {roomWidth-1}\n {roomWidth/2 +1},{roomWidth-1}" );
+                    Tilemap prevRoomTilemap = previousRoom.transform.GetChild(1).GetComponent<Tilemap>();
+                    prevRoomTilemap.SetTile(new Vector3Int(roomWidth/2 -1, roomWidth-1), null);
+                    prevRoomTilemap.SetTile(new Vector3Int(roomWidth/2, roomWidth-1), null);
+                    prevRoomTilemap.SetTile(new Vector3Int(roomWidth/2 +1, roomWidth-1), null);
+                }
+                currentY++;
+                GenerateBossRoom(currentX, currentY);
+            }
+
+            int num = Random.Range(0, 2);
 
             if(num == 0 && gridPositions[currentX, currentY+1] != 1) //up
             {
@@ -148,91 +165,7 @@ public class TilemapSetup : MonoBehaviour
                 //if its not occupied
                 //if its not on the edge
             }
-            else if(num == 1 && gridPositions[currentX-1, currentY] != 1) //left
-            {
-                if(previousRoom != null)
-                {
-                    Debug.Log($"Destroying tiles on tilemap {previousRoom.name} at positions \n {roomWidth/2 -1}, {roomWidth-1} \n {roomWidth/2}, {roomWidth-1}\n {roomWidth/2 +1},{roomWidth-1}" );
-                    Tilemap prevRoomTilemap = previousRoom.transform.GetChild(1).GetComponent<Tilemap>();
-                    prevRoomTilemap.SetTile(new Vector3Int(0, roomWidth/2+1), null);
-                    prevRoomTilemap.SetTile(new Vector3Int(0, roomWidth/2), null);
-                    prevRoomTilemap.SetTile(new Vector3Int(0, roomWidth/2-1), null);
-                }
-
-                currentX--;
-                //generate new room here
-                //have it return a reference to itself, then we can access it's enemy tilemap
-                room =GenerateNewRoom(currentX, currentY);
-
-                //delete the three tiles on right
-                Tilemap roomTilemap = room.transform.GetChild(1).GetComponent<Tilemap>();
-                roomTilemap.SetTile(new Vector3Int(roomWidth-1, roomWidth/2+1), null);
-                roomTilemap.SetTile(new Vector3Int(roomWidth-1, roomWidth/2), null);
-                roomTilemap.SetTile(new Vector3Int(roomWidth-1, roomWidth/2-1), null);
-
-                Tilemap enemyTilemap = room.transform.GetChild(2).GetComponent<Tilemap>();
-                //now can get all tiles on this map, each one will be an enemy spawn location.\
-               
-                BoundsInt bounds = enemyTilemap.cellBounds;
-                
-                TileBase[] enemySpawnTiles = enemyTilemap.GetTilesBlock(bounds);
-                for (int x = 0; x < bounds.size.x; x++) {
-                    for (int y = 0; y < bounds.size.y; y++) {
-                        TileBase tile = enemySpawnTiles[x + y * bounds.size.x];
-                        if (tile != null) {
-                            //here, x and y should be enemy spawn position
-                            Instantiate(enemies[Random.Range(0, enemies.Count)], new Vector2(currentX*roomWidth + x-1.5f, currentY*roomWidth+y-.5f), Quaternion.identity);
-                        } 
-                    }
-                }        
-                numRooms -= 1;
-                //check if left is a valid option, if it is spawn a room here
-                //if its not occupied
-                //if its not on the edge
-            }
-            else if(num == 2 && gridPositions[currentX, currentY-1] != 1) //down
-            {
-                if(previousRoom != null)
-                {
-                    Debug.Log($"Destroying tiles on tilemap {previousRoom.name} at positions \n {roomWidth/2 -1}, {roomWidth-1} \n {roomWidth/2}, {roomWidth-1}\n {roomWidth/2 +1},{roomWidth-1}" );
-                    Tilemap prevRoomTilemap = previousRoom.transform.GetChild(1).GetComponent<Tilemap>();
-                    prevRoomTilemap.SetTile(new Vector3Int(roomWidth/2 -1,0), null);
-                    prevRoomTilemap.SetTile(new Vector3Int(roomWidth/2,0), null);
-                    prevRoomTilemap.SetTile(new Vector3Int(roomWidth/2 +1, 0), null);
-                }
-
-                currentY--;
-                ///generate new room here
-                //have it return a reference to itself, then we can access it's enemy tilemap
-                room =GenerateNewRoom(currentX, currentY);
-
-                //delete tiles on thetop
-                Tilemap roomTilemap = room.transform.GetChild(1).GetComponent<Tilemap>();
-                roomTilemap.SetTile(new Vector3Int(roomWidth/2 -1, roomWidth-1), null);
-                roomTilemap.SetTile(new Vector3Int(roomWidth/2, roomWidth-1), null);
-                roomTilemap.SetTile(new Vector3Int(roomWidth/2 +1, roomWidth-1), null);
-
-                Tilemap enemyTilemap = room.transform.GetChild(2).GetComponent<Tilemap>();
-                //now can get all tiles on this map, each one will be an enemy spawn location.\
-               
-                BoundsInt bounds = enemyTilemap.cellBounds;
-                
-                TileBase[] enemySpawnTiles = enemyTilemap.GetTilesBlock(bounds);
-                for (int x = 0; x < bounds.size.x; x++) {
-                    for (int y = 0; y < bounds.size.y; y++) {
-                        TileBase tile = enemySpawnTiles[x + y * bounds.size.x];
-                        if (tile != null) {
-                            //here, x and y should be enemy spawn position
-                            Instantiate(enemies[Random.Range(0, enemies.Count)], new Vector2(currentX*roomWidth + x-1.5f, currentY*roomWidth+y-.5f), Quaternion.identity);
-                        } 
-                    }
-                }        
-                numRooms -= 1;
-                //check if left is a valid option, if it is spawn a room here
-                //if its not occupied
-                //if its not on the edge
-            }
-            else if(num == 3 && gridPositions[currentX+1, currentY] != 1) //right
+            else if(num == 1 && gridPositions[currentX+1, currentY] != 1) //right
             {
 
                 if(previousRoom != null)
@@ -341,6 +274,11 @@ public class TilemapSetup : MonoBehaviour
             return null;
         }
         
+    }
+
+    private void GenerateBossRoom(int x, int y)
+    {
+
     }
 
 

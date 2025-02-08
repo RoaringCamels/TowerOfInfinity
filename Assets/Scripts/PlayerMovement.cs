@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour {
         inverseMoveTime = 1f / moveTime;
 
         //lets set the player's position in the center of the tile room
-        transform.position = new Vector3(tilemapSetup.roomWidth/2f, tilemapSetup.roomWidth * (tilemapSetup.maxRoomsLength/2) + (tilemapSetup.roomWidth / 2f), 0);
+        transform.position = new Vector3(3.5f, 3.5f);
     }
 
     // Update is called once per frame
