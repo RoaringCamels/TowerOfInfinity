@@ -1588,13 +1588,13 @@ MonoBehaviour:
   - {fileID: 8360424644708026662, guid: 45fb280e76e44034faa095f4886acff7, type: 3}
   enemies:
   - {fileID: 1286945708081363910, guid: c058ab41c97b25d49b6f68c510bc8ede, type: 3}
-  roomWidth: 9
+  roomWidth: 11
   maxRoomsLength: 10
   numRooms: 10
   initializing: 1
   area:
     m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 9, y: 9, z: 0}
+    m_Size: {x: 11, y: 11, z: 0}
   boundaryTilemap: {fileID: 268059870}
   boundaryTile: {fileID: 11400000, guid: 29fb64abd60a982458d5e90a900e4d57, type: 2}
 --- !u!1 &504301219
@@ -1759,7 +1759,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.060976, y: 45, z: -10}
+  m_LocalPosition: {x: 4.063306, y: 45, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4004,7 +4004,7 @@ Transform:
   m_GameObject: {fileID: 1379693495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.060976, y: 45, z: -10}
+  m_LocalPosition: {x: 4.063306, y: 45, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
