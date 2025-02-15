@@ -76,8 +76,8 @@ public class Enemy : MonoBehaviour
 
     public void UpdateHealth(){
         if(health == "0") {
-            Destroy(gameObject);
             RewardManager.Instance.EnemyKilled();
+            Destroy(gameObject); 
         } else {
             healthText.text = health;
         }

@@ -76,8 +76,10 @@ public class Bosslev1 : MonoBehaviour
 
     public void UpdateHealth(){
         if(health == "0") {
-            Destroy(gameObject);
+            BossRoomHandler.Instance.OpenDoor();
             RewardManager.Instance.EnemyKilled();
+            Destroy(gameObject);
+            
         } else {
             healthText.text = health;
         }
