@@ -14,6 +14,7 @@ public class TilemapSetup : MonoBehaviour
     public List<GameObject> roomPresets; 
     public List<GameObject> enemies;
     public GameObject level1BossRoom;
+    public GameObject level1Boss;
 
     [Header("Properties")]
     private int currentX;
@@ -281,6 +282,7 @@ public class TilemapSetup : MonoBehaviour
     private void GenerateBossRoom(int x, int y)
     {
         Instantiate(level1BossRoom, new Vector2(x * roomWidth-1, y * roomWidth), Quaternion.identity, mainGrid.transform);
+        GameObject boss = Instantiate(level1Boss, new Vector2(x * roomWidth + roomWidth/2, y * roomWidth + roomWidth/2), Quaternion.identity);
     }
 
 
