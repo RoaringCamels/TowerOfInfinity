@@ -31,7 +31,7 @@ public class TilemapSetup : MonoBehaviour
     void Awake()
     {
         InitializeGridPositions();
-        FillBoundaryTilemap();
+        //FillBoundaryTilemap();
         Generate();
         
         initializing = false;
@@ -42,18 +42,18 @@ public class TilemapSetup : MonoBehaviour
         gridPositions = new int[maxRoomsLength, maxRoomsLength]; // values default to 0
     }
 
-    void FillBoundaryTilemap()
-    {
-        int length = maxRoomsLength * roomWidth;
-        for(int i =-1; i < length; i++)
-        {
-            for(int j = 0; j < length; j++)
-            {
-                //place a black tile
-                boundaryTilemap.SetTile(new Vector3Int(i, j), boundaryTile);
-            }
-        }
-    }
+    // void FillBoundaryTilemap()
+    // {
+    //     int length = maxRoomsLength * roomWidth;
+    //     for(int i =-1; i < length; i++)
+    //     {
+    //         for(int j = 0; j < length; j++)
+    //         {
+    //             //place a black tile
+    //             boundaryTilemap.SetTile(new Vector3Int(i, j), boundaryTile);
+    //         }
+    //     }
+    // }
 
     public void Generate()
     {
