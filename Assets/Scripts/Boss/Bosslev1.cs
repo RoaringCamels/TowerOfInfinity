@@ -226,7 +226,7 @@ public class Bosslev1 : MonoBehaviour
         StartCoroutine(AttackAnimationTimer());
         AudioManager.Instance.PlayOneShotVariedPitch(shootSFX, 1f, SFXamg, .1f);
         projectile.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
-        velocity = new Vector2(playerPosition.x - transform.position.x+0.2f, playerPosition.y - transform.position.y-0.2f);
+        velocity = new Vector2(playerPosition.x - transform.position.x-0.4f, playerPosition.y - transform.position.y-0.4f);
         
         projectile.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
         
@@ -234,8 +234,12 @@ public class Bosslev1 : MonoBehaviour
         
         projectile.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
         
+        velocity = new Vector2(playerPosition.x - transform.position.x-0.8f, playerPosition.y - transform.position.y-0.8f);
         
-        velocity = new Vector2(playerPosition.x - transform.position.x+0.6f, playerPosition.y - transform.position.y-0.6f);
+        projectile.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
+        
+        
+        velocity = new Vector2(playerPosition.x - transform.position.x+0.8f, playerPosition.y - transform.position.y-0.8f);
         
         projectile.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
     }
