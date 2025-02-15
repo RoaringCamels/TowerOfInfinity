@@ -26,10 +26,6 @@ public class Hitbox : MonoBehaviour
             }
 
         }
-        if(other.CompareTag("Projectile")) {
-
-            other.gameObject.GetComponent<Projectile>().ChangeDamage(playerAttack.performOperation());
-        }
         
         //instead of just destroying, perform the corresponding sword attack damage
     }

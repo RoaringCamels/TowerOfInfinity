@@ -122,7 +122,7 @@ public class Bosslev1 : MonoBehaviour
                         outerCollider2d.enabled = true;
                         if(enemyHit.transform == null)
                         {
-                            thisObject.transform.localScale = new Vector2(-5f, 5f);
+                            thisObject.transform.localScale = new Vector2(-10f, 10f);
                             StartCoroutine(SmoothMovement(new Vector3(transform.position.x-1, transform.position.y, 0)));
                         }
                         else
@@ -142,7 +142,7 @@ public class Bosslev1 : MonoBehaviour
                         outerCollider2d.enabled = true;
                         if(enemyHit.transform == null)
                         {
-                            thisObject.transform.localScale = new Vector2(5f, 5f);
+                            thisObject.transform.localScale = new Vector2(10f, 10f);
                             StartCoroutine(SmoothMovement(new Vector3(transform.position.x+1, transform.position.y, 0)));
                         }
                     }
@@ -218,6 +218,10 @@ public class Bosslev1 : MonoBehaviour
     void Attack(Vector2 playerPosition)
     {
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        GameObject projectile1 = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        GameObject projectile2 = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        GameObject projectile3 = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        GameObject projectile4 = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         Vector2 velocity = new Vector2(playerPosition.x - transform.position.x, playerPosition.y - transform.position.y);
 
         //can set the text of the projectile
@@ -228,20 +232,20 @@ public class Bosslev1 : MonoBehaviour
         projectile.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
         velocity = new Vector2(playerPosition.x - transform.position.x-0.4f, playerPosition.y - transform.position.y-0.4f);
         
-        projectile.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
+        projectile1.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
         
         velocity = new Vector2(playerPosition.x - transform.position.x+0.4f, playerPosition.y - transform.position.y-0.4f);
         
-        projectile.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
-        
+        projectile2.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
+
         velocity = new Vector2(playerPosition.x - transform.position.x-0.8f, playerPosition.y - transform.position.y-0.8f);
         
-        projectile.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
+        projectile3.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
         
         
         velocity = new Vector2(playerPosition.x - transform.position.x+0.8f, playerPosition.y - transform.position.y-0.8f);
         
-        projectile.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
+        projectile4.GetComponent<Projectile>().FireProjectile(velocity, this.gameObject);
     }
 
     private IEnumerator AttackAnimationTimer()
