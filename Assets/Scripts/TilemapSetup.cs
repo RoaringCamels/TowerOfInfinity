@@ -13,6 +13,7 @@ public class TilemapSetup : MonoBehaviour
     public GameObject spawnRoomPreset;
     public List<GameObject> roomPresets; 
     public List<GameObject> enemies;
+    public GameObject level1BossRoom;
 
     [Header("Properties")]
     private int currentX;
@@ -116,6 +117,7 @@ public class TilemapSetup : MonoBehaviour
                 }
                 currentY++;
                 GenerateBossRoom(currentX, currentY);
+                return;
             }
 
             int num = Random.Range(0, 2);
@@ -278,7 +280,7 @@ public class TilemapSetup : MonoBehaviour
 
     private void GenerateBossRoom(int x, int y)
     {
-
+        Instantiate(level1BossRoom, new Vector2(x * roomWidth-1, y * roomWidth), Quaternion.identity, mainGrid.transform);
     }
 
 
