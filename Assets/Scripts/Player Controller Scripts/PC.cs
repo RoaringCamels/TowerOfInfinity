@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
 
 public class PC : MonoBehaviour
 {
@@ -15,24 +12,29 @@ public class PC : MonoBehaviour
         tm = FindObjectOfType<TurnManager>();
     }
 
-    public void StartTurn(){
+    public void StartTurn()
+    {
         hasMoved = false;
     }
 
-    
     void Update()
     {
-        if (!hasMoved && tm.currentTurn == TurnManager.TurnState.PlayerTurn){
-            if (Input.GetKeyDown(KeyCode.W)) Move(Vector2.up);
-            if (Input.GetKeyDown(KeyCode.A)) Move(Vector2.left);
-            if (Input.GetKeyDown(KeyCode.S)) Move(Vector2.down);
-            if (Input.GetKeyDown(KeyCode.D)) Move(Vector2.right);
+        // Uncomment this line when you want to use turn management
+        // if (!hasMoved && tm.currentTurn == TurnManager.TurnState.PlayerTurn)
+        if (true)
+        {
+            if (Input.GetKeyDown(KeyCode.W)) { Debug.Log("UP"); TryMove(Vector2.up); }
+            if (Input.GetKeyDown(KeyCode.A)) { Debug.Log("LEFT"); TryMove(Vector2.left); }
+            if (Input.GetKeyDown(KeyCode.S)) { Debug.Log("DOWN"); TryMove(Vector2.down); }
+            if (Input.GetKeyDown(KeyCode.D)) { Debug.Log("RIGHT"); TryMove(Vector2.right); }
         }
-
     }
 
-    void Move(Vector2 direction){
-        pm.Move(direction);
-        hasMoved = true;
+    void TryMove(Vector2 direction)
+    {
+        if (pm.Move(direction))
+        {
+            hasMoved = true;
+        }
     }
 }
