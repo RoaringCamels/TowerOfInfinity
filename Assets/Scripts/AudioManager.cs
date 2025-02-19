@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -10,9 +11,15 @@ public class AudioManager : MonoBehaviour
 
     [Header("Audio Source Pool")]
     [SerializeField] private int poolSize = 10;
+    [Header("Audio Mixer Groups")]
+    [SerializeField] private AudioMixerGroup backgroundAMG;
+    [Header("Background Music")]
+    [SerializeField] private List<AudioClip> backgroundMusic;
     private List<AudioSource> audioSourcePool;
+    private bool backgroundMusicPlaying;
 
-     private void Awake()
+
+    private void Awake()
     {
         // Singleton setup
         if (Instance == null)
@@ -27,7 +34,26 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        backgroundMusicPlaying = false;
     }
+
+    private void Start()
+    {
+        
+
+    }
+
+    private void Update()
+    {
+        if(backgroundMusicPlaying == false)
+        {
+            backgroundMusicPlaying = true;
+            AudioClip backgroundMusicToPlay = backgroundMusic[Random.Range(0, backgroundMusic.Count)];
+            StartCoroutine(SongCooldown(backgroundMusicToPlay));
+            PlayOneShot(backgroundMusicToPlay, 1.0f, backgroundAMG);
+        }   
+    }
+
     private void InitializeAudioSourcePool()
     {
         audioSourcePool = new List<AudioSource>(poolSize);
@@ -81,5 +107,9 @@ public class AudioManager : MonoBehaviour
         source.PlayOneShot(clip);
     }
 
-
+    private IEnumerator SongCooldown(AudioClip clip)
+    {
+        yield return new WaitForSeconds(clip.length);
+        backgroundMusicPlaying = false;
+    }
 }

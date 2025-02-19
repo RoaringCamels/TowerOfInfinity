@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -37,5 +38,10 @@ public class BossRoomHandler : MonoBehaviour
 
         wallTilemap.SetTile(new Vector3Int(6, 13), null);
         wallTilemap.SetTile(new Vector3Int(6, 14), null);
+    }
+
+    private void OnDisable()
+    {
+        Instance = null;
     }
 }

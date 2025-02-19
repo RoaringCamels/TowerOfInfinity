@@ -6,9 +6,6 @@ using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour {
     // Start is called before the first frame update
-    
-
-
     public float moveTime = 0.1f;       //Time it will take object to move, in seconds.
     public LayerMask blockingLayer;     //Layer on which collision will be checked.
     public LayerMask enemyLayer;
@@ -44,6 +41,8 @@ public class PlayerMovement : MonoBehaviour {
 
         //lets set the player's position in the center of the tile room
         transform.position = new Vector3(3.5f, 3.5f);
+
+        GameManager.beatLevel += ResetPlayerPosition;
     }
 
     // Update is called once per frame
@@ -96,6 +95,10 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
     */
+    public void ResetPlayerPosition(int level)
+    {
+        transform.position = new Vector3(3.5f, 3.5f);
+    }
 
     protected virtual void AttemptMove <T> (int xDir, int yDir)
         where T : Component

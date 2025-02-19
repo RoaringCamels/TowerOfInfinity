@@ -10,6 +10,7 @@ public class BossRoomDoor : MonoBehaviour
         {
             //activate new level generation + give player sword
             Debug.Log("Player entered the door!");
+            GameManager.instance.LevelCompleted();
         }
     }
 }

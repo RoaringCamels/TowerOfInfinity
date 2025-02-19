@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 public class TilemapSetup : MonoBehaviour
 {
+    public static TilemapSetup Instance;
     [Header("References")]
     public GameObject mainGrid;
     public GameObject spawnRoomPreset;
@@ -27,36 +29,57 @@ public class TilemapSetup : MonoBehaviour
     public BoundsInt area;
     public Tilemap boundaryTilemap;
     public TileBase boundaryTile;
+    private List<GameObject> toBeDestroyedOnReset;
+    private int maxNumRooms;
+
 
 
     void Awake()
     {
-        InitializeGridPositions();
-        //FillBoundaryTilemap();
-        Generate();
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        toBeDestroyedOnReset = new List<GameObject>();
+        maxNumRooms = numRooms;
+        // InitializeGridPositions();
+        // ClearPreviousLevel();
+        // Generate();
         
-        initializing = false;
+        //initializing = false;
+        
+        //this list will hold all of the objects that we need to destroy on level load.
+        
     }
 
-    public void InitializeGridPositions()
+    public void NewLevel()
+    {
+        InitializeGridPositions();
+        ClearPreviousLevel();
+        Generate();
+    }
+
+    private void InitializeGridPositions()
     {
         gridPositions = new int[maxRoomsLength, maxRoomsLength]; // values default to 0
+        
     }
 
-    // void FillBoundaryTilemap()
-    // {
-    //     int length = maxRoomsLength * roomWidth;
-    //     for(int i =-1; i < length; i++)
-    //     {
-    //         for(int j = 0; j < length; j++)
-    //         {
-    //             //place a black tile
-    //             boundaryTilemap.SetTile(new Vector3Int(i, j), boundaryTile);
-    //         }
-    //     }
-    // }
+    private void ClearPreviousLevel()
+    {
+        //destroys everything added to this list. Will be enemies and room presets
+        foreach(GameObject go in toBeDestroyedOnReset)
+        {
+            Destroy(go);
+        }
+        numRooms = maxNumRooms;
+    }
 
-    public void Generate()
+    private void Generate()
     {
         ///starting grid at 0, maxRoomNum/2
         ///
@@ -121,7 +144,7 @@ public class TilemapSetup : MonoBehaviour
                 return;
             }
 
-            int num = Random.Range(0, 2);
+            int num = UnityEngine.Random.Range(0, 2);
 
             if(num == 0 && gridPositions[currentX, currentY+1] != 1) //up
             {
@@ -139,7 +162,7 @@ public class TilemapSetup : MonoBehaviour
 
                 //generate new room here
                 //have it return a reference to itself, then we can access it's enemy tilemap
-                room =GenerateNewRoom(currentX, currentY);
+                room = GenerateNewRoom(currentX, currentY);
 
                 //delete three tiles on the bottom
                 Tilemap roomTilemap = room.transform.GetChild(1).GetComponent<Tilemap>();
@@ -159,7 +182,8 @@ public class TilemapSetup : MonoBehaviour
                         TileBase tile = enemySpawnTiles[x + y * bounds.size.x];
                         if (tile != null) {
                             //here, x and y should be enemy spawn position
-                            Instantiate(enemies[Random.Range(0, enemies.Count)], new Vector2(currentX*roomWidth + x-1.5f, currentY*roomWidth+y-.5f), Quaternion.identity);
+                            GameObject enemy = Instantiate(enemies[UnityEngine.Random.Range(0, enemies.Count)], new Vector2(currentX*roomWidth + x-1.5f, currentY*roomWidth+y-.5f), Quaternion.identity);
+                            toBeDestroyedOnReset.Add(enemy);
                         } 
                     }
                 }        
@@ -202,7 +226,8 @@ public class TilemapSetup : MonoBehaviour
                         TileBase tile = enemySpawnTiles[x + y * bounds.size.x];
                         if (tile != null) {
                             //here, x and y should be enemy spawn position
-                            Instantiate(enemies[Random.Range(0, enemies.Count)], new Vector2(currentX*roomWidth + x-1.5f, currentY*roomWidth+y-.5f), Quaternion.identity);
+                            GameObject enemy = Instantiate(enemies[UnityEngine.Random.Range(0, enemies.Count)], new Vector2(currentX*roomWidth + x-1.5f, currentY*roomWidth+y-.5f), Quaternion.identity);
+                            toBeDestroyedOnReset.Add(enemy);
                         } 
                     }
                 }        
@@ -239,6 +264,7 @@ public class TilemapSetup : MonoBehaviour
         //set the preset's parent to the grid object
         GameObject spawned = Instantiate(spawnRoomPreset, new Vector2(x*roomWidth, y * roomWidth), Quaternion.identity);
         spawned.transform.SetParent(mainGrid.transform);
+        toBeDestroyedOnReset.Add(spawned);
 
 
         Tilemap roomTilemap = spawned.transform.GetChild(1).GetComponent<Tilemap>();
@@ -265,8 +291,9 @@ public class TilemapSetup : MonoBehaviour
         //set the preset's parent to the grid object
         if(roomPresets.Count > 0)
         {
-            GameObject spawned = Instantiate(roomPresets[Random.Range(0, roomPresets.Count)], new Vector2(x * roomWidth, y * roomWidth), Quaternion.identity);
+            GameObject spawned = Instantiate(roomPresets[UnityEngine.Random.Range(0, roomPresets.Count)], new Vector2(x * roomWidth, y * roomWidth), Quaternion.identity);
             spawned.transform.SetParent(mainGrid.transform);
+            toBeDestroyedOnReset.Add(spawned); //add to be destroyed on game load
             //set this grid position to 1
             gridPositions[x, y] = 1;
             return spawned;
@@ -281,20 +308,9 @@ public class TilemapSetup : MonoBehaviour
 
     private void GenerateBossRoom(int x, int y)
     {
-        Instantiate(level1BossRoom, new Vector2(x * roomWidth-1, y * roomWidth), Quaternion.identity, mainGrid.transform);
+        GameObject bossRoom = Instantiate(level1BossRoom, new Vector2(x * roomWidth-1, y * roomWidth), Quaternion.identity, mainGrid.transform);
         GameObject boss = Instantiate(level1Boss, new Vector2(x * roomWidth + roomWidth/2, y * roomWidth + roomWidth/2), Quaternion.identity);
+        toBeDestroyedOnReset.Add(bossRoom);
+        toBeDestroyedOnReset.Add(boss);
     }
-
-
-
-
-
-
-
-    //no matter what, theres a spawn room
-
-    ///parts needed
-    ///grab a random preset
-    ///choose a random direction from our current tilemap position
-    ///
 }

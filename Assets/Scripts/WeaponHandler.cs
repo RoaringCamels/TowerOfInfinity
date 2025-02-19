@@ -16,7 +16,8 @@ public class WeaponHandler : MonoBehaviour
     private Weapon currentWeapon;
     public TMP_Text[] weaponLevelText;
     public Image[] Frames;
-    public Image[] weaponIcons;
+    public Image[] weaponIconsUI;
+    public Sprite[] weaponIcons;
     public SpriteRenderer heldWeaponImage;
     public Sprite unselectedFrame;
     public Sprite selectedFrame;
@@ -27,6 +28,7 @@ public class WeaponHandler : MonoBehaviour
         weapons = new Weapon[] {w1,w2,w3,w4};
         currentWeapon = weapons[0];
         Debug.Log($"Starting Weapon: {currentWeapon.getName()}");
+        GameManager.beatLevel += UnlockWeapons;
 
         if(Instance == null)
         {
@@ -37,16 +39,18 @@ public class WeaponHandler : MonoBehaviour
             Destroy(gameObject);
         }
         UpdateLevelUI();
+        UnlockWeapons(1);
         SwitchWeapon(w1, 0);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(w1, 0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(w2, 1);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(w3, 2);
-        if (Input.GetKeyDown(KeyCode.Alpha4)) SwitchWeapon(w4, 3);
+        if (Input.GetKeyDown(KeyCode.Alpha1) && GameManager.instance.GetCurrentLevel() >= 1) SwitchWeapon(w1, 0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)&& GameManager.instance.GetCurrentLevel() >= 2) SwitchWeapon(w2, 1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)&& GameManager.instance.GetCurrentLevel() >= 3) SwitchWeapon(w3, 2);
+        if (Input.GetKeyDown(KeyCode.Alpha4)&& GameManager.instance.GetCurrentLevel() >= 4) SwitchWeapon(w4, 3);
         if (Input.GetKeyDown(InputHandler.Instance.levelKeyLeft))
         {
             currentWeapon.DecreaseLevel();
@@ -67,8 +71,8 @@ public class WeaponHandler : MonoBehaviour
 
     void SwitchWeapon(Weapon weapon, int weaponIndex){
         currentWeapon = weapon;
-        Debug.Log($"Switching icon to {weaponIcons[weaponIndex].sprite.name}");
-        heldWeaponImage.sprite = weaponIcons[weaponIndex].sprite;
+        Debug.Log($"Switching icon to {weaponIconsUI[weaponIndex].sprite.name}");
+        heldWeaponImage.sprite = weaponIconsUI[weaponIndex].sprite;
         for(int i=0; i < weapons.Count(); i++)
         {
             if(i == weaponIndex)
@@ -98,6 +102,11 @@ public class WeaponHandler : MonoBehaviour
         {
             weaponLevelText[i].text = weapons[i].getLevel().ToString();
         }
+    }
+
+    public void UnlockWeapons(int weapon)
+    {
+        weaponIconsUI[weapon-1].sprite = weaponIcons[weapon-1];
     }
     
 }

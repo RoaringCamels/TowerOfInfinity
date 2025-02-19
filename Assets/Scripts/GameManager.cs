@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;        //Allows us to use Lists. 
+using System.Collections.Generic;
+using System;        //Allows us to use Lists. 
 
-    public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour
     {
         //Static instance of GameManager which allows it to be accessed by any other script.
         public static GameManager instance = null;
@@ -10,7 +11,9 @@ using System.Collections.Generic;        //Allows us to use Lists.
         private BoardManager boardScript;
         private TilemapSetup tilemapSetup;
         //Current level number, expressed in game as "Day  1".
-        private int level = 3;
+        private int level = 1;
+        public static event Action<int> beatLevel;
+
 
         //Awake is always called before any Start functions
         void Awake()
@@ -32,10 +35,33 @@ using System.Collections.Generic;        //Allows us to use Lists.
 
             //Get a component reference to the attached BoardManager script
             //boardScript = GetComponent<BoardManager>();
-            tilemapSetup = GetComponent<TilemapSetup>();
+            //tilemapSetup = GetComponent<TilemapSetup>();
 
+            
+        }
+        void Start()
+        {
             //Call the InitGame function to initialize the first level 
             InitGame();
+        }
+
+        public int GetCurrentLevel()
+        {
+            return level;
+        }
+
+        public void LevelCompleted()
+        {
+            level++;
+            if(level > 4)
+            {
+                Debug.Log("Game is over! You won!");
+            }
+            else
+            {
+                TilemapSetup.Instance.NewLevel();
+                beatLevel?.Invoke(level);
+            }
         }
 
         //Initializes the game for each level.
@@ -43,19 +69,7 @@ using System.Collections.Generic;        //Allows us to use Lists.
         {
             //Call the SetupScene function of the BoardManager script, pass it current level number.
             //boardScript.SetupScene(level);
-            if(tilemapSetup.initializing == false)
-            {
-                //tilemapSetup.Generate();
-            }   
-            
-
+            TilemapSetup.Instance.NewLevel();
         }
 
-
-
-        //Update is called every frame.
-        void Update()
-        {
-
-        }
     }
