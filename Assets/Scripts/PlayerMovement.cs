@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour {
     private PlayerAnimation playerAnimation;
     public int currentDirection;
     public TilemapSetup tilemapSetup;
+    public GameObject pauseMenu;
     [Header("Sound Effects")]
     public AudioMixerGroup SFXamg;
     public AudioClip footstepSFX;
@@ -65,36 +66,41 @@ public class PlayerMovement : MonoBehaviour {
             playerAnimation.ChangeDirection(currentDirection);
         }
     }
-/*
-    void Move()
 
+    void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            transform.position = new Vector2(transform.position.x + .16f, transform.position.y);
-            print("D pressed!");
-        }
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            if(transform.position.x -.16f >= -1.25){
-                transform.position = new Vector2(transform.position.x-.16f, transform.position.y);
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            if(transform.position.y +.16f <= .6f){
-                transform.position = new Vector2(transform.position.x, transform.position.y+.16f);
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            if(transform.position.y -.16f >= -.8f){
-                transform.position = new Vector2(transform.position.x, transform.position.y-.16f);
-            }
-            
-        }
+        
     }
-    */
+    /*
+        void Move()
+
+        {
+            if(Input.GetKeyDown(KeyCode.D))
+            {
+                transform.position = new Vector2(transform.position.x + .16f, transform.position.y);
+                print("D pressed!");
+            }
+            if(Input.GetKeyDown(KeyCode.A))
+            {
+                if(transform.position.x -.16f >= -1.25){
+                    transform.position = new Vector2(transform.position.x-.16f, transform.position.y);
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.W))
+            {
+                if(transform.position.y +.16f <= .6f){
+                    transform.position = new Vector2(transform.position.x, transform.position.y+.16f);
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.S))
+            {
+                if(transform.position.y -.16f >= -.8f){
+                    transform.position = new Vector2(transform.position.x, transform.position.y-.16f);
+                }
+
+            }
+        }
+        */
     public void ResetPlayerPosition(int level)
     {
         transform.position = new Vector3(3.5f, 3.5f);
