@@ -104,6 +104,8 @@ public class PlayerMovement : MonoBehaviour {
     public void ResetPlayerPosition(int level)
     {
         transform.position = new Vector3(3.5f, 3.5f);
+        StopAllCoroutines();
+        isPlayerMoving = false;
     }
 
     protected virtual void AttemptMove <T> (int xDir, int yDir)
