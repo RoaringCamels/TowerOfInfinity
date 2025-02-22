@@ -58,6 +58,10 @@ public class Enemy : MonoBehaviour
         rb2D = GetComponentInChildren<Rigidbody2D>();
         inverseMoveTime = 1 / moveTime;
         healthText = GetComponentInChildren<TMP_Text>();
+
+        //here set health to some value based on the current level
+        //
+
         //collider2d = GetComponentInChildren<BoxCollider2D>();
         healthText.text = health.ToString();
         //playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();

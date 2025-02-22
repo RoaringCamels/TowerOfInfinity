@@ -8,13 +8,25 @@ public class PlayerHealth : MonoBehaviour
 
     private TMP_Text healthText;
     public string health = "20";
+    public bool hasPotion;
 
     void Start()
     {
         healthText = GetComponentInChildren<TMP_Text>();
         healthText.text = health.ToString();
+        hasPotion = false;
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            if(hasPotion)
+            {
+                hasPotion = false;
+            }
+        }
+    }
     public void ChangeHealth(string attack)
     {
         ExpressionTree tree = new ExpressionTree();
@@ -23,6 +35,8 @@ public class PlayerHealth : MonoBehaviour
         health = tree.Evaluate().ToString();
         UpdateHealth();
     }
+
+    //public void ChangePotion
 
     public void UpdateHealth(){
         if(health == "0") {

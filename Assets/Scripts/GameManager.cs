@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
         public int numOfEnemy=1;
 
 
+
+
         //Awake is always called before any Start functions
         void Awake()
         {

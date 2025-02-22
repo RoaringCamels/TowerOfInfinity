@@ -112,6 +112,24 @@ public class TilemapSetup : MonoBehaviour
         previousRoomTilemap.SetTile(new Vector3Int(0, roomWidth/2-1), null);
         previousRoomTilemap.SetTile(new Vector3Int(0, roomWidth/2), null);
         previousRoomTilemap.SetTile(new Vector3Int(0, roomWidth/2+1), null);
+
+
+        Tilemap enemyTilemap = previousRoom.transform.GetChild(2).GetComponent<Tilemap>();
+        //now can get all tiles on this map, each one will be an enemy spawn location.\
+        
+        BoundsInt bounds = enemyTilemap.cellBounds;
+        
+        TileBase[] enemySpawnTiles = enemyTilemap.GetTilesBlock(bounds);
+        for (int x = 0; x < bounds.size.x; x++) {
+            for (int y = 0; y < bounds.size.y; y++) {
+                TileBase tile = enemySpawnTiles[x + y * bounds.size.x];
+                if (tile != null) {
+                    //here, x and y should be enemy spawn position
+                    GameObject enemy = Instantiate(enemies[UnityEngine.Random.Range(0, enemies.Count)], new Vector2(currentX*roomWidth + x-1.5f, currentY*roomWidth+y-.5f), Quaternion.identity);
+                    toBeDestroyedOnReset.Add(enemy);
+                } 
+            }
+        }        
         
         for(int i = currentX*roomWidth; i < (currentX*roomWidth)+roomWidth; i++)
         {
@@ -171,12 +189,12 @@ public class TilemapSetup : MonoBehaviour
                 roomTilemap.SetTile(new Vector3Int(roomWidth/2 +1,0), null);
 
 
-                Tilemap enemyTilemap = room.transform.GetChild(2).GetComponent<Tilemap>();
+                enemyTilemap = room.transform.GetChild(2).GetComponent<Tilemap>();
                 //now can get all tiles on this map, each one will be an enemy spawn location.\
                
-                BoundsInt bounds = enemyTilemap.cellBounds;
+                bounds = enemyTilemap.cellBounds;
                 
-                TileBase[] enemySpawnTiles = enemyTilemap.GetTilesBlock(bounds);
+                enemySpawnTiles = enemyTilemap.GetTilesBlock(bounds);
                 for (int x = 0; x < bounds.size.x; x++) {
                     for (int y = 0; y < bounds.size.y; y++) {
                         TileBase tile = enemySpawnTiles[x + y * bounds.size.x];
@@ -215,13 +233,13 @@ public class TilemapSetup : MonoBehaviour
                 roomTilemap.SetTile(new Vector3Int(0 ,roomWidth/2-1), null);
 
 
-                Tilemap enemyTilemap = room.transform.GetChild(2).GetComponent<Tilemap>();
+                enemyTilemap = room.transform.GetChild(2).GetComponent<Tilemap>();
                 Tilemap wallTilemap = room.transform.GetChild(1).GetComponent<Tilemap>();
                 //now can get all tiles on this map, each one will be an enemy spawn location.\
                
-                BoundsInt bounds = enemyTilemap.cellBounds;
+                bounds = enemyTilemap.cellBounds;
                 
-                TileBase[] enemySpawnTiles = enemyTilemap.GetTilesBlock(bounds);
+                enemySpawnTiles = enemyTilemap.GetTilesBlock(bounds);
                 for (int x = 0; x < bounds.size.x; x++) {
                     for (int y = 0; y < bounds.size.y; y++) {
                         TileBase tile = enemySpawnTiles[x + y * bounds.size.x];
