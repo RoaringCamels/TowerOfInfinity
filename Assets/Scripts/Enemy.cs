@@ -1,10 +1,9 @@
-using System.Collections;
+
 using UnityEngine;
 using TMPro;
-using System;
 using Unity.VisualScripting;
-using System.Collections.Generic;
 using UnityEngine.Audio;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -50,7 +49,34 @@ public class Enemy : MonoBehaviour
     
     }
 
+    void Awake()
+    {
+        if(GameManager.instance.GetCurrentLevel() == 1)
+        {
+            health = ((int)Random.Range(1+Mathf.Log(GameManager.instance.numOfEnemy,2), GameManager.instance.numOfEnemy+1)).ToString();
+        }
+        else if(GameManager.instance.GetCurrentLevel() == 2)
+        {
+            int n = Random.Range(1, 100);
 
+            if(n <25) // 25% chance to have positive health
+            {
+                health = ((int)Random.Range(4+Mathf.Log(GameManager.instance.numOfEnemy,1.8f), GameManager.instance.numOfEnemy+4)).ToString();
+            }
+            else  // 75 % chance to have negative health
+            {
+                health = ((int)Random.Range(-GameManager.instance.numOfEnemy-1,-1-Mathf.Log(GameManager.instance.numOfEnemy,1.5f))).ToString();
+            }
+        }
+        else if(GameManager.instance.GetCurrentLevel() == 3)
+        {
+            
+        }
+        else if(GameManager.instance.GetCurrentLevel() == 4)
+        {
+            
+        }
+    }
 
 
     void Start()
@@ -58,10 +84,6 @@ public class Enemy : MonoBehaviour
         rb2D = GetComponentInChildren<Rigidbody2D>();
         inverseMoveTime = 1 / moveTime;
         healthText = GetComponentInChildren<TMP_Text>();
-
-        //here set health to some value based on the current level
-        //
-
         //collider2d = GetComponentInChildren<BoxCollider2D>();
         healthText.text = health.ToString();
         //playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
