@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         public void LevelCompleted()
         {
             level++;
+            numOfEnemy = 1;
             if(level > 4)
             {
                 Debug.Log("Game is over! You won!");
@@ -65,7 +66,6 @@ public class GameManager : MonoBehaviour
                 TilemapSetup.Instance.NewLevel();
                 beatLevel?.Invoke(level);
             }
-            numOfEnemy = 1;
         }
 
         //Initializes the game for each level.
