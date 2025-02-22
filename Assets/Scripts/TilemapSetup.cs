@@ -184,6 +184,7 @@ public class TilemapSetup : MonoBehaviour
                             //here, x and y should be enemy spawn position
                             GameObject enemy = Instantiate(enemies[UnityEngine.Random.Range(0, enemies.Count)], new Vector2(currentX*roomWidth + x-1.5f, currentY*roomWidth+y-.5f), Quaternion.identity);
                             toBeDestroyedOnReset.Add(enemy);
+                            GameManager.instance.numOfEnemy++;
                         } 
                     }
                 }        
