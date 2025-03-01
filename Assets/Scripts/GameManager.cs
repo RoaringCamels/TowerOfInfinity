@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
         public static event Action<int> beatLevel;
 
         public int numOfEnemy=1;
+        [SerializeField] private GameObject winScreen;
 
 
 
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
             if(level > 4)
             {
                 Debug.Log("Game is over! You won!");
+                winScreen.SetActive(true);
             }
             else
             {

@@ -17,6 +17,9 @@ public class PlayerHealth : MonoBehaviour
     public TMP_Text potionHealthText;
     public GameObject potionSlot;
 
+    [Header("References")]
+    [SerializeField] private GameObject loseScreen; 
+
 
     public void Awake()
     {
@@ -93,6 +96,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void UpdateHealth(){
         if(health == "0") {
+            loseScreen.SetActive(true);
             Destroy(gameObject);
         } else {
             healthText.text = health;
