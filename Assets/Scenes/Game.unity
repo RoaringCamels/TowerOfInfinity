@@ -5602,10 +5602,8 @@ MonoBehaviour:
   - {fileID: 7835436065751301536, guid: 5dd07ceb81a0bf44cb93387ff1e6365e, type: 3}
   tier3AdditionRewards:
   - {fileID: 7835436065751301536, guid: c24f12e23b0ad14419b49682fee5dbd7, type: 3}
-  tier3MultiplicationRewards:
-  - {fileID: 7835436065751301536, guid: 5ff7c0412745cc04692eabd5815c21f8, type: 3}
-  tier3DivisionRewards:
-  - {fileID: 7835436065751301536, guid: 99265a70a0306994ab464082e1139395, type: 3}
+  tier3MultiplicationRewards: []
+  tier3DivisionRewards: []
   tier2Wieght: 25
   tier2Rewards:
   - {fileID: 614460846404969916, guid: f2d887a3835ca1a4ca72ddb4e56833df, type: 3}

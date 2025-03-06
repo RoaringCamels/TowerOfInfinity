@@ -93,11 +93,13 @@ public class RewardManager : MonoBehaviour
             curr.transform.SetParent(rewardMenu.transform);
         }
         rewardMenu.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void DisableRewardMenu()
     {
         rewardMenu.SetActive(false);
+        Time.timeScale = 1f;
         rewardIsUp = false;
         if(count > 0)
         {
