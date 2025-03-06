@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8908611438715406918}
   - component: {fileID: 4629965376051913937}
   m_Layer: 5
-  m_Name: levup3 subtract
+  m_Name: SubLevelUpT1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,6 +153,8 @@ MonoBehaviour:
   description: Increase subtraction sword level by three.
   confirmSFX: {fileID: 8300000, guid: c5cb2ac29e89dbf43a9b644caaad45e6, type: 3}
   UIamg: {fileID: -6961386016481578428, guid: 7e4d1e11053ed7644b10d39f4a58cc2b, type: 2}
+  weaponToLevel: 0
+  levelsToAdd: 3
 --- !u!1 &5568999609087710023
 GameObject:
   m_ObjectHideFlags: 0

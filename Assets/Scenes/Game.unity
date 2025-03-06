@@ -5598,15 +5598,36 @@ MonoBehaviour:
   tier3Wieght: 70
   tier3Rewards:
   - {fileID: 7835436065751301536, guid: 4c867343d6dfc7e49baf12a34b4ad33b, type: 3}
+  tier3PotionRewards:
   - {fileID: 7835436065751301536, guid: 5dd07ceb81a0bf44cb93387ff1e6365e, type: 3}
+  tier3AdditionRewards:
+  - {fileID: 7835436065751301536, guid: c24f12e23b0ad14419b49682fee5dbd7, type: 3}
+  tier3MultiplicationRewards:
+  - {fileID: 7835436065751301536, guid: 5ff7c0412745cc04692eabd5815c21f8, type: 3}
+  tier3DivisionRewards:
+  - {fileID: 7835436065751301536, guid: 99265a70a0306994ab464082e1139395, type: 3}
   tier2Wieght: 25
   tier2Rewards:
   - {fileID: 614460846404969916, guid: f2d887a3835ca1a4ca72ddb4e56833df, type: 3}
+  tier2PotionRewards:
   - {fileID: 7835436065751301536, guid: 48d4bc7767d0512418f9c8de95657ffd, type: 3}
+  tier2AdditionRewards:
+  - {fileID: 7835436065751301536, guid: 1c256ad74fb94c2499e76a95acb01b1c, type: 3}
+  tier2MultiplicationRewards:
+  - {fileID: 7835436065751301536, guid: 50fc84e4581971642aed5a5422c52322, type: 3}
+  tier2DivisionRewards:
+  - {fileID: 7835436065751301536, guid: 7dc496258aa4c3047bb8e1358aa34367, type: 3}
   tier1Wieght: 5
   tier1Rewards:
   - {fileID: 1454734714088842638, guid: b73d875c54b58144d924b9d1428e7c8f, type: 3}
+  tier1PotionRewards:
   - {fileID: 7835436065751301536, guid: 05d6b101f13db1949a366481f3f6eeca, type: 3}
+  tier1AdditionRewards:
+  - {fileID: 7835436065751301536, guid: 5949bdc30f1b59946b7c4d407d118711, type: 3}
+  tier1MultiplicationRewards:
+  - {fileID: 7835436065751301536, guid: 6ee70ce390299114c89da3d32e46bc2b, type: 3}
+  tier1DivisionRewards:
+  - {fileID: 7835436065751301536, guid: 90fd89230a2e5404bad765cfd0c7b34a, type: 3}
 --- !u!4 &1187394577
 Transform:
   m_ObjectHideFlags: 0

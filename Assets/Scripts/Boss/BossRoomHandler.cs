@@ -8,7 +8,7 @@ using UnityEngine.Tilemaps;
 
 public class BossRoomHandler : MonoBehaviour
 {
-
+//TEST
     public static BossRoomHandler Instance;
     [SerializeField] private Tilemap wallTilemap;
 

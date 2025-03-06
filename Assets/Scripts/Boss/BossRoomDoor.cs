@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BossRoomDoor : MonoBehaviour
 {
+    //test
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))

@@ -5,11 +5,17 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.UI;
 
-public class Levelup3subtract : BaseReward 
+public class WeaponLevelUp : BaseReward 
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    public int weaponToLevel;
+    public int levelsToAdd;
+    
     public override void Reward()
     {
-        WeaponHandler.Instance.weapons[0].LevelUp(3);
+        WeaponHandler.Instance.weapons[weaponToLevel].LevelUp(levelsToAdd);
         RewardManager.Instance.DisableRewardMenu();
     }
 
